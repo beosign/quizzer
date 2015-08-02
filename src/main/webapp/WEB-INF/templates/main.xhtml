@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link
+		href="#{request.contextPath}/resources/css/common-style.css"
+		rel="stylesheet" type="text/css" />
+	<link
+		href="#{request.contextPath}/resources/css/table.css"
+		rel="stylesheet" type="text/css" />
+	<h:outputScript library="js" name="ajax-util.js" target="head" />
+</h:head>
+
+<h:body>
+
+	<div id="page">
+
+		<div id="header">
+			<ui:insert name="header">
+
+			</ui:insert>
+		</div>
+
+		<div id="errors">
+			<ui:insert name="errors">
+				<p:messages id="messages" globalOnly="true" showSummary="true" showDetail="true"/>
+			
+			</ui:insert>
+		</div>
+
+		<div id="content">
+			<ui:insert name="content">
+
+			</ui:insert>
+		</div>
+
+		<div id="footer">
+			<ui:insert name="footer">
+
+			</ui:insert>
+		</div>
+
+	</div>
+
+</h:body>
+</html>

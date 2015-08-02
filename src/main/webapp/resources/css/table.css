@@ -1,0 +1,39 @@
+.tableborder {
+    border-style: hidden !important;
+}
+
+.tablerow1 {
+	background-color: #c0c0c0;
+}
+
+.tablerow2 {
+	background-color: #ffffff;
+}
+
+.tableheader {
+	background-color: #004080;
+	color: #E7E7D8;
+}
+.tablefooter {
+	background-color: #E7E7D8;
+	color: #004080;
+}
+.link {
+	color: #004080;
+	text-decoration: none;
+}
+.link:hover {
+	color: #004080;
+	text-decoration: underline;
+}
+
+.column-large {
+	width: 35%;
+}
+
+.column-numeric {
+	text-align: right;
+}
+.column-center {
+	text-align: center;
+}

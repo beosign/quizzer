@@ -1,0 +1,39 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<persistence-unit name="quizzer">
+		<description>
+			Persistence settings for Quizzer
+		</description>
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		  
+		<jta-data-source>java:jboss/datasources/QuizzerDS</jta-data-source>
+		 
+		<properties>
+			<!--  When using the tomee.xml (JNDI), the the javax.persistence properties could be deleted 
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://ip:3306/database" />
+			<property name="javax.persistence.jdbc.user" value="user" />
+			<property name="javax.persistence.jdbc.password" value="password" />
+			
+
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.connection.validationQuery" value="select 1"/>
+			-->
+			
+			<!-- Comment this in when using H2. Additionally configure the tomee.xml, see example file	-->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+        	<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+        	<property name="hibernate.show_sql" value="true" />
+		
+		</properties>
+
+	</persistence-unit>
+	
+	
+ 	
+</persistence>

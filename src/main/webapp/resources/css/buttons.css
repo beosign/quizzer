@@ -1,0 +1,83 @@
+.buttons input {
+	margin: 5px;
+	padding: 5px 5px 5px 30px;
+	/* 20px makes room for your background image */
+	border: 1px solid #aaa;
+}
+
+.buttons .login {
+	background-image: url("#{request.contextPath}/javax.faces.resource/edit.png.xhtml?ln=images");
+	background-position: 10px 6px;
+	background-repeat: no-repeat;
+	padding-left: 30px;
+	background-size: 16px 16px;
+}
+
+.buttons .login:hover {
+	background-image: url("#{request.contextPath}/resources/images/edit.png");
+	background-position: 10px 6px;
+	background-repeat: no-repeat;
+	padding-left: 30px;
+	background-size: 16px 16px;
+	background-color: silver;
+	border: 1px solid black;
+}
+
+.vmbutton {
+	margin: 5px;
+	padding: 5px 5px 5px 30px;
+	/* 20px makes room for your background image */
+	border: 1px solid #aaa;
+	background-image: url("#{request.contextPath}/javax.faces.resource/edit.png.xhtml?ln=images");
+	background-position: 10px 6px;
+	background-repeat: no-repeat;
+	background-size: 16px 16px;
+	font-family: tahoma, arial, helvetica, sans-serif; 
+}
+
+.vmbutton:hover {
+	background-image: url("#{request.contextPath}/resources/images/edit.png");
+	background-repeat: no-repeat;
+	background-color: silver;
+	border: 1px solid black;
+	font-family: tahoma, arial, helvetica, sans-serif;
+}
+
+.clear { /* generic container (i.e. div) for floating buttons */
+	overflow: hidden;
+	width: 100%;
+}
+
+.links a.button {
+	background: transparent
+		url('/WebVideoManager/javax.faces.resource/button.gif.xhtml?ln=images')
+		no-repeat scroll top right;
+	color: #444;
+	display: block;
+	float: left;
+	font: normal 12px arial, sans-serif;
+	height: 24px;
+	margin-right: 6px;
+	padding-right: 18px; /* sliding doors padding */
+	text-decoration: none;
+}
+
+.links a.button span {
+	background: transparent
+		url('/WebVideoManager/javax.faces.resource/button.gif.xhtml?ln=images')
+		no-repeat;
+	display: block;
+	line-height: 14px;
+	padding: 5px 0 5px 18px;
+}
+
+.links a.button:active {
+	background-position: bottom right;
+	color: #000;
+	outline: none; /* hide dotted outline in Firefox */
+}
+
+.links a.button:active span {
+	background-position: bottom left;
+	padding: 6px 0 4px 18px; /* push text down 1px */
+}
