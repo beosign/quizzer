@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Question extends AbstractBaseEntity {
     public enum Type {
-        SINGLE, MULTIPLE, TEXT
+        SINGLE, MULTIPLE, TEXT;
     }
 
     private String code;

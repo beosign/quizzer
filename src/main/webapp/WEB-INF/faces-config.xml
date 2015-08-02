@@ -12,6 +12,10 @@
 			<base-name>de.beosign.quizzer.resources.messages</base-name>
 			<var>msg</var>
 		</resource-bundle>
+		<resource-bundle>
+			<base-name>de.beosign.quizzer.resources.enums</base-name>
+			<var>enums</var>
+		</resource-bundle>
 
 	</application>
 </faces-config>

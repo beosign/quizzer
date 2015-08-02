@@ -9,8 +9,8 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
-		<h2>Questions</h2>
-
+		<h2 class="#{layoutController.headerStyle}">Questions</h2>
+		
 		<h:form>
 			<p:commandButton value="Add"
 				action="#{questionController.doCreateQuestion()}" />
@@ -51,7 +51,7 @@
 					<f:facet name="header">
 						<h:outputText value="Type" />
 					</f:facet>
-					<h:outputText value="#{q.type}" />
+					<h:outputText value=" #{enumUtil.getQuestionType(q.type)}" />
 				</p:column>
 				<p:column>
 					<f:facet name="header">

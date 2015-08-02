@@ -56,7 +56,7 @@ public class AddEditQuestionController implements Serializable {
         return isEditMode;
     }
 
-    public Question getAccount() {
+    public Question getQuestion() {
         return question;
     }
 
@@ -73,9 +73,9 @@ public class AddEditQuestionController implements Serializable {
 
     public String getTitle() {
         if (isEditMode) {
-            return Resources.getResourceText(facesContext, "addEditQuestion.edit.code", question.getCode());
+            return Resources.getResourceText(facesContext, "addEditQuestion.edit.title", question.getCode());
         } else {
-            return Resources.getResourceText(facesContext, "addEditQuestion.add.code");
+            return Resources.getResourceText(facesContext, "addEditQuestion.add.title");
         }
     }
 

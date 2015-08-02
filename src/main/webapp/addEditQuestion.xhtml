@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/templates/main.xhtml">
+
+	
+	<ui:define name="content">
+		<h2 class="#{layoutController.headerStyle}">
+			<h:outputText value="#{addEditQuestionController.title}" />
+		</h2>
+
+		<h:form id="form">
+			<p:panelGrid id="grid" columns="3" styleClass="tableborder" columnClasses="tableborder,tableborder,tableborder">
+				<p:outputLabel value="#{msg['addEditQuestion.add.code']}" />
+				<p:inputText id="code" value="#{addEditQuestionController.question.code}" /> 
+				<p:message for="code"  />
+				
+				<p:outputLabel value="#{msg['addEditQuestion.add.question']}" />
+				<p:inputTextarea id="question" rows="10" cols="50" value="#{addEditQuestionController.question.questionText}" />
+				<p:message for="question" />
+				  
+				<p:outputLabel value="#{msg['addEditQuestion.add.points']}" />
+				<p:inputText id="points" value="#{addEditQuestionController.question.points}" />
+				<p:message for="points" />
+				  
+				<p:outputLabel value="#{msg['addEditQuestion.add.type']}" />
+				<p:selectOneMenu id="type" value="#{addEditQuestionController.question.type}">
+					<f:selectItems value="#{enumUtil.questionTypes}" var="type" itemValue="#{type}" itemLabel="#{enumUtil.getQuestionType(type)}" />
+				</p:selectOneMenu>
+				
+				<p:message for="type" />
+				
+			</p:panelGrid>
+			
+			<p:commandButton ajax="true"  action="#{addEditQuestionController.doOk()}"
+				value="#{msg.ok}">
+				<f:ajax execute="@form" render="@form" onevent="onevent" onerror="onerror"></f:ajax>
+			</p:commandButton>
+			
+			<p:commandButton ajax="false" immediate="true" action="#{addEditQuestionController.doCancel()}"
+				value="#{msg.cancel}">
+			</p:commandButton>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+

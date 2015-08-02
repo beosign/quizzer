@@ -71,4 +71,8 @@ public class Resources {
         return new FacesMessage(severity, msg, null);
     }
 
+    public static Locale getCurrentLocale() {
+        return FacesContext.getCurrentInstance().getViewRoot().getLocale();
+
+    }
 }
