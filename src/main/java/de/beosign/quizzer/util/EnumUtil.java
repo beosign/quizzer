@@ -14,7 +14,7 @@ public class EnumUtil {
     }
 
     public String getQuestionType(Question.Type type) {
-        return Resources.getResourceTextForBundle(FacesContext.getCurrentInstance(), "enums", "question.type." + type.name());
+        return FacesUtil.getResourceTextForBundle(FacesContext.getCurrentInstance(), "enums", "question.type." + type.name());
     }
 
 }

@@ -15,7 +15,7 @@ import de.beosign.quizzer.event.Events.Added;
 import de.beosign.quizzer.model.Question;
 import de.beosign.quizzer.model.Question.Type;
 import de.beosign.quizzer.service.QuestionService;
-import de.beosign.quizzer.util.Resources;
+import de.beosign.quizzer.util.FacesUtil;
 
 @Named
 @SessionScoped
@@ -73,9 +73,9 @@ public class AddEditQuestionController implements Serializable {
 
     public String getTitle() {
         if (isEditMode) {
-            return Resources.getResourceText(facesContext, "addEditQuestion.edit.title", question.getCode());
+            return FacesUtil.getResourceText(facesContext, "addEditQuestion.edit.title", question.getCode());
         } else {
-            return Resources.getResourceText(facesContext, "addEditQuestion.add.title");
+            return FacesUtil.getResourceText(facesContext, "addEditQuestion.add.title");
         }
     }
 
