@@ -44,12 +44,6 @@ public abstract class AbstractBaseEntity implements BaseEntity {
     @XmlTransient
     protected Logger logger = LogManager.getLogger();
 
-    @Override
-    public abstract boolean equals(Object o);
-
-    @Override
-    public abstract int hashCode();
-
     /*
      * (non-Javadoc)
      * @see de.beosign.webapp.businessobject.BaseEntity#getId()

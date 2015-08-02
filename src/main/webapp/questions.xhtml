@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="WEB-INF/templates/main.xhtml"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<h2>Questions</h2>
+
+		<h:form>
+			<p:commandButton value="Add"
+				action="#{questionController.doCreateQuestion()}" />
+			<p:commandButton value="Refresh"
+				action="#{questionController.doRefresh()}" />
+
+			<p:dataTable border="1"
+				columnClasses="1,column-center,column-center,column-center"
+				rowClasses="tablerow1,tablerow2"
+				value="#{questionController.questionService.findAll()}" var="q">
+				<p:column style="width:20px">
+					<p:commandLink icon=""
+						action="#{questionController.doEditQuestion(q)}">
+						<h:graphicImage width="16" height="16" library="images"
+							name="edit.png" />
+					</p:commandLink>
+				</p:column>
+				<p:column style="width:20px">
+					<p:commandLink icon=""
+						action="#{questionController.doDeleteQuestion(q)}">
+						<h:graphicImage width="16" height="16" library="images"
+							name="delete.png" />
+					</p:commandLink>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Code" />
+					</f:facet>
+					<h:outputText value="#{q.code}"></h:outputText>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Question" />
+					</f:facet>
+					<h:outputText value="#{q.questionText}"></h:outputText>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Type" />
+					</f:facet>
+					<h:outputText value="#{q.type}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Points" />
+					</f:facet>
+					<h:outputText value="#{q.points}" />
+				</p:column>
+				</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
