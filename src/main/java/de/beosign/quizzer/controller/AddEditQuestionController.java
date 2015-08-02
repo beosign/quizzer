@@ -2,6 +2,7 @@ package de.beosign.quizzer.controller;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
@@ -12,6 +13,7 @@ import javax.inject.Named;
 import org.apache.logging.log4j.Logger;
 
 import de.beosign.quizzer.event.Events.Added;
+import de.beosign.quizzer.model.Answer;
 import de.beosign.quizzer.model.Question;
 import de.beosign.quizzer.model.Question.Type;
 import de.beosign.quizzer.service.QuestionService;
@@ -32,8 +34,10 @@ public class AddEditQuestionController implements Serializable {
     @Added
     private Event<Question> questionAddedEvent;
 
+    private boolean isAnswerEditMode = false;
+
     public enum Pages {
-        OK("questions"), CANCEL("questions");
+        OK("questions"), CANCEL("questions"), ADD_ANSWER("");
 
         private final String outcome;
 
@@ -51,6 +55,12 @@ public class AddEditQuestionController implements Serializable {
 
     private boolean isEditMode;
     private Question question;
+    private Answer answer;
+
+    @PostConstruct
+    public void init() {
+        answer = new Answer(question, "", false);
+    }
 
     public boolean isEditMode() {
         return isEditMode;
@@ -79,6 +89,14 @@ public class AddEditQuestionController implements Serializable {
         }
     }
 
+    public String getAnswerButtonTitle() {
+        if (isAnswerEditMode) {
+            return FacesUtil.getResourceText(facesContext, "addEditQuestion.answer.button.edit");
+        } else {
+            return FacesUtil.getResourceText(facesContext, "addEditQuestion.answer.button.add");
+        }
+    }
+
     void testAdd() {
         isEditMode = false;
         question = new Question("Code", "Text", Type.SINGLE, 3);
@@ -98,8 +116,47 @@ public class AddEditQuestionController implements Serializable {
         return Pages.OK.getOutcome();
     }
 
+    public String doAddEditAnswer() {
+        logger.debug("Answer edit mode {}", isAnswerEditMode);
+
+        if (!isAnswerEditMode) {
+            answer.setQuestion(question);
+            question.getAnswers().add(answer);
+        }
+
+        answer = new Answer(question, "", false);
+        isAnswerEditMode = false;
+
+        return Pages.ADD_ANSWER.getOutcome();
+    }
+
+    public String doDeleteAnswer(Answer answer) {
+        logger.debug("Delete answer clicked");
+
+        question.getAnswers().remove(answer);
+
+        return Pages.ADD_ANSWER.getOutcome();
+    }
+
+    public String doEditAnswer(Answer answer) {
+        logger.debug("Edit answer clicked");
+
+        this.answer = answer;
+        isAnswerEditMode = true;
+
+        return Pages.ADD_ANSWER.getOutcome();
+    }
+
     public String doCancel() {
         logger.debug("Cancel clicked");
         return Pages.CANCEL.getOutcome();
+    }
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
     }
 }

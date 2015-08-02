@@ -2,6 +2,7 @@ package de.beosign.quizzer.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -102,7 +103,7 @@ public class Question extends AbstractBaseEntity {
         this.points = points;
     }
 
-    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Answer> getAnswers() {
         return answers;
     }

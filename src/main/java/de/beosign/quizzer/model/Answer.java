@@ -12,7 +12,7 @@ public class Answer extends AbstractBaseEntity {
     /**
      * JPA needs at least protected default constructor.
      */
-    protected Answer() {
+    public Answer() {
     }
 
     public Answer(Question question, String answerText, boolean isCorrect) {
