@@ -19,7 +19,7 @@ import de.beosign.quizzer.model.Question;
 @Stateless
 @Interceptors({ TraceInterceptor.class })
 @Local(QuestionService.class)
-public class QuestionServiceBean extends DefaultService<Question> {
+public class QuestionServiceBean extends DefaultService<Question> implements QuestionService {
     private static final AtomicLong INSTANCE_COUNTER = new AtomicLong(0);
 
     @Inject
@@ -35,7 +35,7 @@ public class QuestionServiceBean extends DefaultService<Question> {
         return super.create(question);
     }
 
-    public static void onAccountAdded(@Observes @Added Question question) {
+    public static void onQuestionAdded(@Observes @Added Question question) {
         Log.logger().debug("[EVENT {}]: {}", Added.class.getSimpleName(), question);
     }
 

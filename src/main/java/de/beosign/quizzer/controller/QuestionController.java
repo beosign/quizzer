@@ -64,7 +64,7 @@ public class QuestionController implements Serializable {
     }
 
     public String doEditQuestion(Question question) {
-        logger.info("Editing account {}", question);
+        logger.info("Editing question {}", question);
 
         addEditQuestionController.edit(question);
         return Pages.EDIT.getOutcome();
