@@ -51,7 +51,7 @@
 
 				</p:panelGrid>
 
-				<p:panelGrid columns="1"
+				<p:panelGrid id="grid-answers" columns="1"
 					columnClasses="tableborder" >
 					<p:panelGrid id="add-answer">
 						<f:facet name="header">
@@ -90,7 +90,7 @@
 
 						<p:row>
 							<p:column styleClass="tableborder" colspan="3" style="text-align: center">
-								<p:commandButton ajax="false"
+								<p:commandButton ajax="true" update="grid-answers" process="grid-answers" 
 									value="#{addEditQuestionController.answerButtonTitle}"
 									action="#{addEditQuestionController.doAddEditAnswer()}">
 									<p:resetInput target="add-answer"></p:resetInput>
