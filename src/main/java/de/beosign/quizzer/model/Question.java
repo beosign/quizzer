@@ -1,5 +1,6 @@
 package de.beosign.quizzer.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -19,7 +20,7 @@ public class Question extends AbstractBaseEntity {
     private String questionText;
     private Type type;
     private int points;
-    private List<Answer> answers;
+    private List<Answer> answers = new ArrayList<>();
 
     public Question() {
     }
