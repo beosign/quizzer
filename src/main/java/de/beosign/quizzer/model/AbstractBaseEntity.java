@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 import javax.persistence.Version;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,11 +35,9 @@ public abstract class AbstractBaseEntity implements BaseEntity {
     protected Long version;
 
     @Transient
-    @XmlTransient
     protected DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     @Transient
-    @XmlTransient
     protected Logger logger = LogManager.getLogger();
 
     /*
@@ -51,7 +47,6 @@ public abstract class AbstractBaseEntity implements BaseEntity {
     @Override
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @XmlElement
     public Long getId() {
         return id;
     }
@@ -70,7 +65,6 @@ public abstract class AbstractBaseEntity implements BaseEntity {
      * @return the version
      */
     @Version
-    @XmlElement
     public Long getVersion() {
         return version;
     }
