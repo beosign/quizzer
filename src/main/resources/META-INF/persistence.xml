@@ -12,6 +12,9 @@
 		<jta-data-source>java:jboss/datasources/QuizzerDS</jta-data-source>
 		 
 		<properties>
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.connection.validationQuery" value="select 1"/>
+						
 			<!--  When using the tomee.xml (JNDI), the the javax.persistence properties could be deleted 
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://ip:3306/database" />
