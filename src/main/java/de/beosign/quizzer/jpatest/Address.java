@@ -65,4 +65,9 @@ public class Address extends AbstractBaseEntity {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "Address [street=" + street + ", zipCode=" + zipCode + ", country=" + country + ", type=" + type + "]";
+    }
+
 }

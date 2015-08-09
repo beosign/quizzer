@@ -60,4 +60,9 @@ public class Club {
         this.version = version;
     }
 
+    @Override
+    public String toString() {
+        return "Club [name=" + name + ", fee=" + fee + ", constitutionYear=" + constitutionYear + ", version=" + version + "]";
+    }
+
 }
