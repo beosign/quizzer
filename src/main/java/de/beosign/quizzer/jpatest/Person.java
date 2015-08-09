@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -30,7 +31,7 @@ public class Person extends AbstractBaseEntity {
     private List<Address> addresses = new ArrayList<Address>();
     private List<Club> clubs = new ArrayList<>();
 
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     public List<Address> getAddresses() {
         return addresses;
     }
@@ -75,7 +76,7 @@ public class Person extends AbstractBaseEntity {
         this.dateOfBirth = dateOfBirth;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "PersonClubs", joinColumns = { @JoinColumn(name = "person_id") }, inverseJoinColumns = { @JoinColumn(name = "club") })
     public List<Club> getClubs() {
         return clubs;
@@ -83,6 +84,12 @@ public class Person extends AbstractBaseEntity {
 
     public void setClubs(List<Club> clubs) {
         this.clubs = clubs;
+    }
+
+    @Override
+    public String toString() {
+        return "Person [lastName=" + lastName + ", firstName=" + firstName + ", sex=" + sex + ", dateOfBirth=" + dateOfBirth + ", addresses=" + addresses
+                + ", clubs=" + clubs + "]";
     }
 
 }

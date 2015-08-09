@@ -1,5 +1,6 @@
 package de.beosign.quizzer.jpatest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -12,7 +13,7 @@ public class Club {
     private String name;
     private int fee;
     private int constitutionYear;
-    private List<Person> members;
+    private List<Person> members = new ArrayList<>();
 
     private Long version;
 
