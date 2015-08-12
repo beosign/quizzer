@@ -1,5 +1,8 @@
 .tableborder {
     border-style: hidden !important;
+}
+
+.vertical-top {
     vertical-align: top;
 }
 
