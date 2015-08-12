@@ -13,6 +13,10 @@ body {
 }
 
 
+.ui-widget, .ui-widget .ui-widget {
+    font-size: 100%;
+}
+
 #header {
 	height: 32px;
 	border: 1px solid #000;
