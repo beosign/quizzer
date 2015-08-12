@@ -90,7 +90,7 @@
 
 						<p:row>
 							<p:column styleClass="tableborder" colspan="3" style="text-align: center">
-								<p:commandButton ajax="true" update="grid-answers" process="grid-answers" 
+								<p:commandButton ajax="true" update="grid-answers type" process="grid-answers" 
 									value="#{addEditQuestionController.answerButtonTitle}"
 									action="#{addEditQuestionController.doAddEditAnswer()}">
 									<p:resetInput target="add-answer"></p:resetInput>
@@ -111,7 +111,7 @@
 							</p:commandLink>
 						</p:column>
 						<p:column style="width:20px">
-							<p:commandLink icon="" ajax="false"
+							<p:commandLink icon="" ajax="true" update="form:grid-answers form:type" process="@this"
 								action="#{addEditQuestionController.doDeleteAnswer(a)}">
 								<h:graphicImage width="16" height="16" library="images"
 									name="delete.png" />
