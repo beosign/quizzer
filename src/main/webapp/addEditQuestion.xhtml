@@ -13,45 +13,44 @@
 
 
 		<h:form id="form">
+			<p:messages></p:messages>
 			<h:panelGrid id="grid" columns="2" styleClass="tableborder"  cellpadding="5"
 				columnClasses="tableborder vertical-top,tableborder vertical-top">
+				<p:panelGrid id="qgrid" columns="2"
 					columnClasses="tableborder,tableborder,tableborder">
 					<f:facet name="header">
 						<p:row>
-							<p:column colspan="3">
+							<p:column colspan="2">
 								<h:outputText value="#{addEditQuestionController.title}" />
 							</p:column>
 						</p:row>
 					</f:facet>
 
-					<p:outputLabel value="#{msg['addEditQuestion.add.code']}" />
+					<p:outputLabel value="#{msg['addEditQuestion.add.code']}" for="code" />
 					<p:inputText id="code"
 						value="#{addEditQuestionController.question.code}" />
-					<p:message for="code" />
 
-					<p:outputLabel value="#{msg['addEditQuestion.add.question']}" />
-					<p:inputTextarea id="question" rows="10" cols="50"
+					<p:outputLabel for="question" value="#{msg['addEditQuestion.add.question']}" />
+					<p:inputTextarea id="question" rows="10" cols="30"
 						value="#{addEditQuestionController.question.questionText}" />
-					<p:message for="question" />
 
-					<p:outputLabel value="#{msg['addEditQuestion.add.points']}" />
+					<p:outputLabel for="points" value="#{msg['addEditQuestion.add.points']}" />
 					<p:inputText id="points"
 						value="#{addEditQuestionController.question.points}" />
-					<p:message for="points" />
 
-					<p:outputLabel value="#{msg['addEditQuestion.add.type']}" />
-					<p:selectOneMenu id="type" disabled="#{addEditQuestionController.question.answers.size() > 0}"
+					<p:outputLabel for="type" value="#{msg['addEditQuestion.add.type']}" />
+					<p:selectOneMenu id="type"
+						disabled="#{addEditQuestionController.question.answers.size() > 0}"
 						value="#{addEditQuestionController.question.type}">
 						<f:selectItems value="#{enumUtil.questionTypes}" var="type"
 							itemValue="#{type}" itemLabel="#{enumUtil.getQuestionType(type)}" />
 					</p:selectOneMenu>
 
-					<p:message for="type" />
 
 				</p:panelGrid>
 
 				<p:panelGrid id="grid-answers" columns="1"
-					columnClasses="tableborder" >
+					columnClasses="tableborder">
 					<p:panelGrid id="add-answer">
 						<f:facet name="header">
 							<p:row>
@@ -74,22 +73,24 @@
 							</p:column>
 						</p:row>
 
-						<p:row> 
+						<p:row>
 							<p:column styleClass="tableborder">
 								<p:outputLabel value="#{msg['addEditQuestion.answer.correct']}" />
 							</p:column>
-							<p:column styleClass="tableborder" >
+							<p:column styleClass="tableborder">
 								<p:selectBooleanCheckbox id="correct"
 									value="#{addEditQuestionController.answer.correct}" />
-							</p:column >
+							</p:column>
 							<p:column styleClass="tableborder">
 								<p:message for="correct" />
 							</p:column>
 						</p:row>
 
 						<p:row>
-							<p:column styleClass="tableborder" colspan="3" style="text-align: center">
-								<p:commandButton ajax="true" update="grid-answers type" process="grid-answers" 
+							<p:column styleClass="tableborder" colspan="3"
+								style="text-align: center">
+								<p:commandButton ajax="true" update="grid-answers type"
+									process="grid-answers"
 									value="#{addEditQuestionController.answerButtonTitle}"
 									action="#{addEditQuestionController.doAddEditAnswer()}">
 									<p:resetInput target="add-answer"></p:resetInput>
@@ -98,7 +99,7 @@
 						</p:row>
 					</p:panelGrid>
 
-					<p:dataTable border="1"
+					<p:dataTable border="1" editable="true" editMode="cell"
 						columnClasses="column-center,column-center,column-center"
 						rowClasses="tablerow1,tablerow2"
 						value="#{addEditQuestionController.question.answers}" var="a">
@@ -110,7 +111,8 @@
 							</p:commandLink>
 						</p:column>
 						<p:column style="width:20px">
-							<p:commandLink icon="" ajax="true" update="form:grid-answers form:type" process="@this"
+							<p:commandLink icon="" ajax="true"
+								update="form:grid-answers form:type" process="@this"
 								action="#{addEditQuestionController.doDeleteAnswer(a)}">
 								<h:graphicImage width="16" height="16" library="images"
 									name="delete.png" />
@@ -120,13 +122,20 @@
 							<f:facet name="header">
 								<h:outputText value="#{msg['addEditQuestion.answer.answer']}" />
 							</f:facet>
-							<h:outputText value="#{a.answerText}"></h:outputText>
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{a.answerText}"></h:outputText>
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{a.answerText}" style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
 						</p:column>
-						<p:column>
+						<p:column style="text-align:center; width:60px">
 							<f:facet name="header">
 								<h:outputText value="#{msg['addEditQuestion.answer.correct']}" />
 							</f:facet>
-							<h:outputText value="#{a.correct}"></h:outputText>
+							<p:selectBooleanCheckbox value="#{a.correct}" style="align:center" />
 						</p:column>
 					</p:dataTable>
 				</p:panelGrid>
