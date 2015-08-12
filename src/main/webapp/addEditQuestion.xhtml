@@ -13,7 +13,6 @@
 
 
 		<h:form id="form">
-			<p:messages></p:messages>
 			<h:panelGrid id="grid" columns="2" styleClass="tableborder"  cellpadding="5"
 				columnClasses="tableborder vertical-top,tableborder vertical-top">
 				<p:panelGrid id="qgrid" columns="2"
@@ -142,10 +141,8 @@
 			</h:panelGrid>
 
 
-			<p:commandButton ajax="true"
+			<p:commandButton ajax="false"
 				action="#{addEditQuestionController.doOk()}" value="#{msg.ok}">
-				<f:ajax execute="@form" render="@form" onevent="onevent"
-					onerror="onerror"></f:ajax>
 			</p:commandButton>
 
 			<p:commandButton ajax="false" immediate="true"
