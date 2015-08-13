@@ -95,6 +95,7 @@ public class Question extends AbstractBaseEntity {
         this.type = type;
     }
 
+    @NotNull
     @Min(1)
     public int getPoints() {
         return points;
