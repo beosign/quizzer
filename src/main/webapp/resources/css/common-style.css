@@ -12,17 +12,31 @@ body {
 
 }
 
+@font-face {
+  font-family: Harrington;
+  local: Harrington;
+                
+}	
 
 .ui-widget, .ui-widget .ui-widget {
     font-size: 100%;
 }
 
 #header {
-	height: 32px;
+	height: 48px;
 	border: 1px solid #000;
-	margin-left:16px;
+	/*margin-left:16px;
 	margin-right:16px;
-	margin-top:16px;
+	margin-top:16px;*/
+	font-family: Harrington;
+	font-size: 32pt;
+	font-weight:bold;
+	color: #03528D;
+	background: transparent linear-gradient(to right, grey, #03528D) repeat scroll 0% 0%;
+	padding: 16px;
+		
+	
+
 }
 
 #errors {
@@ -47,5 +61,7 @@ body {
 	margin-right:16px;
 	margin-bottom:16px;	
 }
+
+
 
 
