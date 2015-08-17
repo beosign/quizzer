@@ -70,6 +70,13 @@ public class AddEditQuestionController implements Serializable {
         return question;
     }
 
+    public String addNewAnswer() {
+        Answer answer = new Answer();
+        question.getAnswers().add(answer);
+        answer.setQuestion(question);
+        return Pages.ADD_ANSWER.outcome;
+    }
+
     void edit(Question question) {
         isEditMode = true;
         this.question = question;

@@ -58,44 +58,7 @@
 							</p:row>
 						</f:facet>
 					<p:panelGrid id="add-answer">
-
-						<p:row>
-							<p:column styleClass="tableborder">
-								<p:outputLabel value="#{msg['addEditQuestion.answer.answer']}" />
-							</p:column>
-							<p:column styleClass="tableborder">
-								<p:inputText id="answer"
-									value="#{addEditQuestionController.answer.answerText}" />
-							</p:column>
-							<p:column styleClass="tableborder">
-								<p:message for="add-answer" />
-							</p:column>
-						</p:row>
-
-						<p:row>
-							<p:column styleClass="tableborder">
-								<p:outputLabel value="#{msg['addEditQuestion.answer.correct']}" />
-							</p:column>
-							<p:column styleClass="tableborder">
-								<p:selectBooleanCheckbox id="correct"
-									value="#{addEditQuestionController.answer.correct}" />
-							</p:column>
-							<p:column styleClass="tableborder">
-								<p:message for="correct" />
-							</p:column>
-						</p:row>
-
-						<p:row>
-							<p:column styleClass="tableborder" colspan="3"
-								style="text-align: center">
-								<p:commandButton ajax="true" update="grid-answers type"
-									process="grid-answers"
-									value="#{addEditQuestionController.answerButtonTitle}"
-									action="#{addEditQuestionController.doAddEditAnswer()}">
-									<p:resetInput target="add-answer"></p:resetInput>
-								</p:commandButton>
-							</p:column>
-						</p:row>
+						<p>#{msg['addEditQuestion.answer.explanation']}</p>
 					</p:panelGrid>
 
 					<p:dataTable border="1" editable="true" editMode="cell"
@@ -136,6 +99,12 @@
 							</f:facet>
 							<p:selectBooleanCheckbox value="#{a.correct}" style="align:center" />
 						</p:column>
+						
+						<f:facet name="footer" >
+							<div style="text-align: right; font-size: 80%">
+						        <p:commandButton update="form:grid-answers form:type" process="@this" action="#{addEditQuestionController.addNewAnswer}" value="#{msg['addEditQuestion.answer.button.add']}" />						        
+					        </div>
+					    </f:facet>						
 					</p:dataTable>
 				</p:panelGrid>
 			</h:panelGrid>
