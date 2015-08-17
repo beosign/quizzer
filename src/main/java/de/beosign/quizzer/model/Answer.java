@@ -2,6 +2,7 @@ package de.beosign.quizzer.model;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Answer extends AbstractBaseEntity {
@@ -30,6 +31,7 @@ public class Answer extends AbstractBaseEntity {
         this.question = question;
     }
 
+    @NotNull
     public String getAnswerText() {
         return answerText;
     }

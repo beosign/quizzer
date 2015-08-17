@@ -10,6 +10,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import de.beosign.quizzer.validator.QuestionAnswersValid;
+
 @Entity
 public class Question extends AbstractBaseEntity {
     public enum Type {
@@ -105,6 +107,7 @@ public class Question extends AbstractBaseEntity {
         this.points = points;
     }
 
+    @QuestionAnswersValid
     @OneToMany(mappedBy = "question", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Answer> getAnswers() {
         return answers;

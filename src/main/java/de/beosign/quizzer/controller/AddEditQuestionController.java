@@ -18,6 +18,7 @@ import de.beosign.quizzer.model.Question;
 import de.beosign.quizzer.model.Question.Type;
 import de.beosign.quizzer.service.QuestionService;
 import de.beosign.quizzer.util.FacesUtil;
+import de.beosign.quizzer.validator.ValidationUtil;
 
 @Named
 @SessionScoped
@@ -37,9 +38,13 @@ public class AddEditQuestionController implements Serializable {
     private boolean isAnswerEditMode = false;
 
     public enum Pages {
-        OK("questions"), CANCEL("questions"), ADD_ANSWER("");
+        OK("questions"), CANCEL("questions"), ADD_ANSWER, VALIDATION_FAILED;
 
         private final String outcome;
+
+        Pages() {
+            this("");
+        }
 
         Pages(String outcome) {
             this.outcome = outcome;
@@ -113,6 +118,16 @@ public class AddEditQuestionController implements Serializable {
 
     public String doOk() {
         logger.debug("OK clicked");
+
+        /*
+         * Must manually validate whole object as JSF can only validate fields
+         * that occur on the form.
+         * See http://stackoverflow.com/questions/16210972/force-jsf-to-bean-validate-all-fields-of-my-bean-not-only-those-bound-to-an-inp
+         */
+
+        if (ValidationUtil.addValidationErrorsToFacesContext(question, facesContext).size() > 0) {
+            return Pages.VALIDATION_FAILED.outcome;
+        }
 
         if (isEditMode) {
             questionService.update(question);
