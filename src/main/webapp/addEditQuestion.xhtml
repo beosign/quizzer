@@ -65,13 +65,7 @@
 						columnClasses="column-center,column-center,column-center"
 						rowClasses="tablerow1,tablerow2"
 						value="#{addEditQuestionController.question.answers}" var="a">
-						<p:column style="width:20px">
-							<p:commandLink icon="" ajax="false"
-								action="#{addEditQuestionController.doEditAnswer(a)}">
-								<h:graphicImage width="16" height="16" library="images"
-									name="edit.png" />
-							</p:commandLink>
-						</p:column>
+
 						<p:column style="width:20px">
 							<p:commandLink icon="" ajax="true"
 								update="form:grid-answers form:type" process="@this"
@@ -102,7 +96,7 @@
 						
 						<f:facet name="footer" >
 							<div style="text-align: right; font-size: 80%">
-						        <p:commandButton update="form:grid-answers form:type" process="@this" action="#{addEditQuestionController.addNewAnswer}" value="#{msg['addEditQuestion.answer.button.add']}" />						        
+						        <p:commandButton update="form:grid-answers form:type" process="@all" action="#{addEditQuestionController.addNewAnswer}" value="#{msg['addEditQuestion.answer.button.add']}" />						        
 					        </div>
 					    </f:facet>						
 					</p:dataTable>
