@@ -8,11 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.Min;
 
 @Entity
-public class Course {
+public class Course implements BaseEntity<String> {
     private String name;
     private Long version;
     private List<Question> questions = new ArrayList<>();
@@ -74,6 +75,12 @@ public class Course {
 
     public void setExams(List<Exam> exams) {
         this.exams = exams;
+    }
+
+    @Transient
+    @Override
+    public String getKey() {
+        return name;
     }
 
 }

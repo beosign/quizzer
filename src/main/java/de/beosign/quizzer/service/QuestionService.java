@@ -4,7 +4,7 @@ import java.util.List;
 
 import de.beosign.quizzer.model.Question;
 
-public interface QuestionService extends Service<Question> {
+public interface QuestionService extends Service<Question, Long> {
 
     /**
      * Method must be overridden to make CDI events work.

@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import de.beosign.quizzer.validator.QuestionAnswersValid;
 
 @Entity
-public class Question extends AbstractBaseEntity {
+public class Question extends LongKeyBaseEntity {
     public enum Type {
         SINGLE, MULTIPLE, TEXT;
     }

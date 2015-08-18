@@ -23,7 +23,7 @@ import org.apache.logging.log4j.Logger;
  * @author florian
  */
 @MappedSuperclass
-public abstract class AbstractBaseEntity implements BaseEntity {
+public abstract class LongKeyBaseEntity implements BaseEntity<Long> {
     /**
      * Stores the current id
      */
@@ -40,14 +40,15 @@ public abstract class AbstractBaseEntity implements BaseEntity {
     @Transient
     protected Logger logger = LogManager.getLogger();
 
-    /*
-     * (non-Javadoc)
-     * @see de.beosign.webapp.businessobject.BaseEntity#getId()
-     */
-    @Override
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
+        return id;
+    }
+
+    @Transient
+    @Override
+    public Long getKey() {
         return id;
     }
 

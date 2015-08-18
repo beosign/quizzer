@@ -8,11 +8,11 @@ package de.beosign.quizzer.model;
  * 
  * @author florian
  */
-public interface BaseEntity {
+public interface BaseEntity<K> {
     /**
-     * Returns the unique identifier as a long value
+     * Returns the key
      * 
-     * @return the id
+     * @return the key
      */
-    Long getId();
+    K getKey();
 }

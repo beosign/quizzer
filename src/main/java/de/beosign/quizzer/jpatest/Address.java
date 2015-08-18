@@ -5,10 +5,10 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 
-import de.beosign.quizzer.model.AbstractBaseEntity;
+import de.beosign.quizzer.model.LongKeyBaseEntity;
 
 @Entity
-public class Address extends AbstractBaseEntity {
+public class Address extends LongKeyBaseEntity {
     public enum Type {
         WORK, HOME
     }

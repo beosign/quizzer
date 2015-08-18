@@ -1,6 +1,9 @@
 package de.beosign.quizzer.jpatest;
 
+import java.lang.reflect.InvocationTargetException;
+
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -11,6 +14,7 @@ import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.logging.log4j.Logger;
 
 import de.beosign.quizzer.jpatest.Person.Sex;
@@ -24,6 +28,8 @@ public class TestController {
 
     @Inject
     private Logger logger;
+
+    private String text;
 
     @Transactional
     public String testQueries() {
@@ -112,4 +118,23 @@ public class TestController {
 
         return "";
     }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+        logger.debug("new text: {}", text);
+    }
+
+    public void handleKeyEvent(AjaxBehaviorEvent e) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        logger.debug("Text = {}, event = {}", text, e.getBehavior());
+        logObject(e);
+    }
+
+    private void logObject(Object o) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        logger.debug(ReflectionToStringBuilder.toString(o));
+    }
+
 }

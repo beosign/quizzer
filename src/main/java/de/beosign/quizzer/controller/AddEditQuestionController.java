@@ -2,7 +2,6 @@ package de.beosign.quizzer.controller;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
@@ -60,12 +59,8 @@ public class AddEditQuestionController implements Serializable {
 
     private boolean isEditMode;
     private Question question;
-    private Answer answer;
 
-    @PostConstruct
-    public void init() {
-        answer = new Answer(question, "", false);
-    }
+    // private Answer answer;
 
     public boolean isEditMode() {
         return isEditMode;
@@ -77,8 +72,8 @@ public class AddEditQuestionController implements Serializable {
 
     public String addNewAnswer() {
         Answer answer = new Answer();
-        question.getAnswers().add(answer);
         answer.setQuestion(question);
+        question.getAnswers().add(answer);
         return Pages.ADD_ANSWER.outcome;
     }
 
@@ -138,33 +133,10 @@ public class AddEditQuestionController implements Serializable {
         return Pages.OK.getOutcome();
     }
 
-    public String doAddEditAnswer() {
-        logger.debug("Answer edit mode {}", isAnswerEditMode);
-
-        if (!isAnswerEditMode) {
-            answer.setQuestion(question);
-            question.getAnswers().add(answer);
-        }
-
-        answer = new Answer(question, "", false);
-        isAnswerEditMode = false;
-
-        return Pages.ADD_ANSWER.getOutcome();
-    }
-
     public String doDeleteAnswer(Answer answer) {
         logger.debug("Delete answer clicked");
 
         question.getAnswers().remove(answer);
-
-        return Pages.ADD_ANSWER.getOutcome();
-    }
-
-    public String doEditAnswer(Answer answer) {
-        logger.debug("Edit answer clicked");
-
-        this.answer = answer;
-        isAnswerEditMode = true;
 
         return Pages.ADD_ANSWER.getOutcome();
     }
@@ -174,11 +146,4 @@ public class AddEditQuestionController implements Serializable {
         return Pages.CANCEL.getOutcome();
     }
 
-    public Answer getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
-    }
 }

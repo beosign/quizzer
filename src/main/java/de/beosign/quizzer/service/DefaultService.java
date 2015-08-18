@@ -24,7 +24,7 @@ import de.beosign.quizzer.util.PersistenceHelper;
  * @param <T> the generic type
  */
 @Dependent
-public abstract class DefaultService<T extends BaseEntity> implements Service<T> {
+public abstract class DefaultService<T extends BaseEntity<K>, K> implements Service<T, K> {
 
     @Inject
     protected Logger logger;
@@ -58,7 +58,7 @@ public abstract class DefaultService<T extends BaseEntity> implements Service<T>
     @Override
     public T update(T t) {
         logger.info("Updating object {}", t);
-        em.find(t.getClass(), t.getId());
+        em.find(t.getClass(), t.getKey());
 
         try {
             t = em.merge(t);
@@ -71,9 +71,9 @@ public abstract class DefaultService<T extends BaseEntity> implements Service<T>
     }
 
     @Override
-    public Optional<T> find(long id) {
-        logger.info("Finding object of type {} with id {}", getGenericClass().getName(), id);
-        return Optional.ofNullable(em.find(getGenericClass(), id));
+    public Optional<T> find(K key) {
+        logger.info("Finding object of type {} with key {}", getGenericClass().getName(), key);
+        return Optional.ofNullable(em.find(getGenericClass(), key));
     }
 
     @Override
@@ -86,9 +86,9 @@ public abstract class DefaultService<T extends BaseEntity> implements Service<T>
     }
 
     @Override
-    public Optional<T> delete(long id) {
-        logger.info("Deleting object of type {} with id {}", getGenericClass().getName(), id);
-        Optional<T> m = find(id);
+    public Optional<T> delete(K key) {
+        logger.info("Deleting object of type {} with key {}", getGenericClass().getName(), key);
+        Optional<T> m = find(key);
         if (m.isPresent()) {
             try {
                 em.remove(m.get());

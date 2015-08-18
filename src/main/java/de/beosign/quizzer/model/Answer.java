@@ -5,7 +5,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Answer extends AbstractBaseEntity {
+public class Answer extends LongKeyBaseEntity {
     private Question question;
     private String answerText;
     private boolean isCorrect;

@@ -11,7 +11,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Exam extends AbstractBaseEntity {
+public class Exam extends LongKeyBaseEntity {
     private Course course;
     private List<ExamQuestion> examQuestions = new ArrayList<>();
 

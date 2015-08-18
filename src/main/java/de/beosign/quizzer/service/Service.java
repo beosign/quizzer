@@ -12,16 +12,17 @@ import de.beosign.quizzer.model.BaseEntity;
  * Base interface for a Service.
  * 
  * @param <T> entity type
+ * @param <K> key type
  * @author florian
  */
-public interface Service<T extends BaseEntity> {
+public interface Service<T extends BaseEntity<K>, K> {
     /**
-     * Returns the entity by id.
+     * Returns the entity by key.
      * 
-     * @param id id
-     * @return the entity by id.
+     * @param key key
+     * @return the entity by key.
      */
-    Optional<T> find(long id);
+    Optional<T> find(K key);
 
     /**
      * Finds all entities.
@@ -49,9 +50,9 @@ public interface Service<T extends BaseEntity> {
     /**
      * Deleted the given entity and returns it.
      * 
-     * @param id id of entity
+     * @param key key of entity
      * @return deleted entity
      */
-    Optional<T> delete(long id);
+    Optional<T> delete(K key);
 
 }

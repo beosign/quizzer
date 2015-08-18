@@ -15,10 +15,10 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
-import de.beosign.quizzer.model.AbstractBaseEntity;
+import de.beosign.quizzer.model.LongKeyBaseEntity;
 
 @Entity
-public class Person extends AbstractBaseEntity {
+public class Person extends LongKeyBaseEntity {
     public enum Sex {
         MALE, FEMALE
     }
