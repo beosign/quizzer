@@ -16,6 +16,8 @@
 				action="#{questionController.doCreateQuestion()}" />
 			<p:commandButton value="#{msg['question.refresh']}"
 				action="#{questionController.doRefresh()}" />
+			<p:commandButton value="#{msg['question.back']}"
+				action="#{questionController.back()}" />
 
 			<p:dataTable border="1"
 				columnClasses="1,column-center,column-center,column-center"

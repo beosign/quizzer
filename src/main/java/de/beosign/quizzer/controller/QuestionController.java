@@ -28,7 +28,8 @@ public class QuestionController implements Serializable {
     private QuestionService questionService;
 
     public enum Pages {
-        TESTADD("index"), ADD("addEditQuestion"), EDIT("addEditQuestion"), DELETE("questions?faces-redirect=true"), SELF("questions?faces-redirect=true");
+        TESTADD("index"), ADD("addEditQuestion"), EDIT("addEditQuestion"), DELETE("questions?faces-redirect=true"), SELF("questions?faces-redirect=true"),
+        BACK("index");
 
         private final String outcome;
 
@@ -61,6 +62,12 @@ public class QuestionController implements Serializable {
         logger.info("Refreshing question");
 
         return Pages.SELF.getOutcome();
+    }
+
+    public String back() {
+        logger.info("Back");
+
+        return Pages.BACK.getOutcome();
     }
 
     public String doEditQuestion(Question question) {
