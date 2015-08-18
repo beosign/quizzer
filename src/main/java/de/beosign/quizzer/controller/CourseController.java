@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -14,7 +14,7 @@ import de.beosign.quizzer.model.Course;
 import de.beosign.quizzer.service.CourseService;
 
 @Named
-@SessionScoped
+@RequestScoped
 public class CourseController implements Serializable {
 
     private static final long serialVersionUID = 2406204476528121383L;
@@ -29,7 +29,7 @@ public class CourseController implements Serializable {
     private CourseService courseService;
 
     public enum Pages {
-        ADD("addEditCourses"), EDIT("addEditCourses"), DELETE("courses?faces-redirect=true"), SELF("courses?faces-redirect=true");
+        ADD("addEditCourses"), EDIT("addEditCourses"), DELETE("courses?faces-redirect=true"), SELF("courses?faces-redirect=true"), BACK("index");
 
         private final String outcome;
 
@@ -57,6 +57,10 @@ public class CourseController implements Serializable {
         logger.info("Refreshing courses");
 
         return Pages.SELF.getOutcome();
+    }
+
+    public String back() {
+        return Pages.BACK.getOutcome();
     }
 
     public String doEditCourse(Course course) {

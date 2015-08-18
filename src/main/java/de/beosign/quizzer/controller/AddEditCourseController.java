@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
@@ -24,7 +24,7 @@ import de.beosign.quizzer.util.FacesUtil;
 import de.beosign.quizzer.validator.ValidationUtil;
 
 @Named
-@SessionScoped
+@RequestScoped
 public class AddEditCourseController implements Serializable {
     private static final long serialVersionUID = -7052232834963685034L;
 
@@ -140,7 +140,7 @@ public class AddEditCourseController implements Serializable {
     }
 
     public void onQuestionSelected(SelectEvent event) {
-        logger.debug(event.getObject().toString());
+        logger.debug(event.getObject().getClass().getName() + ": " + event.getObject());
         selectedQuestion = (Question) event.getObject();
     }
 

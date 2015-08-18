@@ -50,10 +50,11 @@
 						1. ItemLabel is not visible on the GUI itself, as columns are used. However, for filtering purposes it is necessary 
 					    2. Although q references the DualListModel class, it can be used here for the underlying type
 					    3. A converter must be named here by ConverterID. Using the annotation forClass does not work here
+					    4. Only with a converter, the ValueChangeEvent method yields a value of the entity type (Question), otherwise, you will only get a String
 					-->
 					<p:pickList id="questionPickList" value="#{addEditCourseController.questionDualListModel}"
 						var="q" effect="bounce" itemValue="#{q}" itemLabel="#{q.questionText} #{q.code}"  showSourceControls="true" converter="QuestionConverter"
-						showTargetControls="true" showCheckbox="true" responsive="true" showSourceFilter="true"
+						showTargetControls="true" showCheckbox="false" responsive="true" showSourceFilter="true"
 						showTargetFilter="true" filterMatchMode="contains" valueChangeListener="#{addEditCourseController.valueChangeMethod}">
 
 						<p:ajax event="select" listener="#{addEditCourseController.onQuestionSelected}" update="question" />
@@ -61,14 +62,10 @@
 						<f:facet name="sourceCaption">Available</f:facet>
 						<f:facet name="targetCaption">Selected</f:facet>
 
-
-						<p:column style="width:30%">
+						<p:column>
 							<h:outputText value="#{q.code}" />
 						</p:column>
 
-						<p:column style="width:70%;">
-							<h:outputText value="#{q.questionText}" />
-						</p:column>
 					</p:pickList>
 
 					<p:panel id="question" header="#{addEditCourseController.selectedQuestion.code}" footer="#{addEditCourseController.selectedQuestion.points} Point(s)">
