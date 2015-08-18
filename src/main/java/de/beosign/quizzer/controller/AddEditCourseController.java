@@ -76,9 +76,9 @@ public class AddEditCourseController implements Serializable {
         ValidationUtil.addValidationErrorsToFacesContext(course, facesContext);
 
         if (isCourseEditMode) {
-            // courseServiceBean.update(course);
+            courseServiceBean.update(course);
         } else {
-            // courseServiceBean.create(course);
+            courseServiceBean.create(course);
         }
 
         return Pages.OK.outcome;
