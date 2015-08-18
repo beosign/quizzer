@@ -29,7 +29,7 @@ public class CourseController implements Serializable {
     private CourseService courseService;
 
     public enum Pages {
-        TESTADD("index"), ADD("addEditCourse"), EDIT("addEditCourse"), DELETE("course?faces-redirect=true"), SELF("course?faces-redirect=true");
+        ADD("addEditCourses"), EDIT("addEditCourses"), DELETE("courses?faces-redirect=true"), SELF("courses?faces-redirect=true");
 
         private final String outcome;
 
