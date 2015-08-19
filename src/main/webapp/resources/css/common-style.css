@@ -22,6 +22,10 @@ body {
     font-size: 100%;
 }
 
+.fill {
+	width: 100%;
+}
+
 #header {
 	height: 48px;
 	border: 1px solid #000;

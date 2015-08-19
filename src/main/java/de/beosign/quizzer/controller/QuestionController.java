@@ -60,6 +60,7 @@ public class QuestionController implements Serializable {
     public String doCreateQuestion() {
         logger.info("Create question");
         addEditQuestionController.add();
+
         return Pages.ADD.getOutcome();
     }
 

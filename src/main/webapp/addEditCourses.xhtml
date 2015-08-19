@@ -11,12 +11,12 @@
 
 		<h:form id="form">
 			<h:panelGrid id="grid" columns="2" styleClass="tableborder" cellpadding="5"
-				columnClasses="tableborder vertical-top,tableborder vertical-top">
+				columnClasses="tableborder vertical-top,tableborder vertical-top fill">
 				<p:panelGrid id="grid-course" columns="2" columnClasses="tableborder,tableborder">
 					<f:facet name="header">
 						<p:row>
 							<p:column colspan="2">
-								<h:outputText value="#{addEditQuestionController.title}" />
+								<h:outputText value="#{addEditCourseController.title}" />
 							</p:column>
 						</p:row>
 					</f:facet>
@@ -33,17 +33,15 @@
 
 				</p:panelGrid>
 
-				<p:panelGrid id="grid-questions" columns="1" columnClasses="tableborder">
+				<p:panelGrid id="grid-questions" styleClass="fill" columns="1" columnClasses="tableborder">
 					<f:facet name="header">
 						<p:row>
-							<p:column colspan="3">
-								<h:outputText value="#{msg['question.text']}" />
+							<p:column>
+								<h:outputText value="#{msg['addEditCourse.questions']}" />
 							</p:column>
 						</p:row>
 					</f:facet>
-					<p:panelGrid id="add-question">
-						<p>#{msg['course.question.explanation']}</p>
-					</p:panelGrid>
+					<p>#{msg['course.question.explanation']}</p>
 
 
 					<!-- 
