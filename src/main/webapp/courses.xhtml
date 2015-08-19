@@ -40,9 +40,10 @@
 				</p:column>
 				<p:column>
 					<f:facet name="header">
-						<h:outputText value="Duration" />
+						<h:outputText value="Duration"/>
 					</f:facet>
-					<h:outputText value=" #{c.allowedDuration}" />
+					<h:outputText value="#{c.allowedDuration}" converter="#{durationMinutesConverter}">
+					 </h:outputText> 
 				</p:column>
 
 			</p:dataTable>
