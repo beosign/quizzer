@@ -1,6 +1,7 @@
 package de.beosign.quizzer.controller;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -27,6 +28,8 @@ public class QuestionController implements Serializable {
     @EJB
     private QuestionService questionService;
 
+    private List<Question> questions;
+
     public enum Pages {
         TESTADD("index"), ADD("addEditQuestion"), EDIT("addEditQuestion"), DELETE("questions?faces-redirect=true"), SELF("questions?faces-redirect=true"),
         BACK("index");
@@ -45,6 +48,8 @@ public class QuestionController implements Serializable {
     @PostConstruct
     private void init() {
         logger.debug("questionService = {}", questionService.getClass().getName());
+
+        questions = questionService.findAll();
     }
 
     public String doCreateTestQuestion() {
@@ -87,6 +92,14 @@ public class QuestionController implements Serializable {
 
     public QuestionService getQuestionService() {
         return questionService;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 
 }

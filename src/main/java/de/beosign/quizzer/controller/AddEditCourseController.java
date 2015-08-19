@@ -6,9 +6,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -24,7 +24,7 @@ import de.beosign.quizzer.util.FacesUtil;
 import de.beosign.quizzer.validator.ValidationUtil;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class AddEditCourseController implements Serializable {
     private static final long serialVersionUID = -7052232834963685034L;
 

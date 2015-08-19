@@ -22,7 +22,7 @@
 			<p:dataTable border="1"
 				columnClasses="1,column-center,column-center,column-center"
 				rowClasses="tablerow1,tablerow2"
-				value="#{questionController.questionService.findAll()}" var="q">
+				value="#{questionController.questions}" var="q">
 				<p:column style="width:20px">
 					<p:commandLink icon=""
 						action="#{questionController.doEditQuestion(q)}">

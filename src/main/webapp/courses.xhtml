@@ -12,7 +12,7 @@
 			<p:commandButton value="#{msg['course.back']}" action="#{courseController.back()}" />
 
 			<p:dataTable border="1" columnClasses="1,column-center,column-center,column-center"
-				rowClasses="tablerow1,tablerow2" value="#{courseController.courseService.findAll()}" var="c">
+				rowClasses="tablerow1,tablerow2" value="#{courseController.courses}" var="c">
 				<p:column style="width:20px">
 					<p:commandLink icon="" action="#{courseController.doEditCourse(c)}">
 						<h:graphicImage width="16" height="16" library="images" name="edit.png" />
