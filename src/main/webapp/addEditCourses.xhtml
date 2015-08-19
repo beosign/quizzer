@@ -5,6 +5,14 @@
 	xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets" template="/WEB-INF/templates/main.xhtml">
 
+<ui:define name="metadata">
+		<f:metadata>
+		    <f:viewParam name="courseName" value="#{addEditCourseController.courseName}" />
+		    <f:viewAction action="#{addEditCourseController.initAfterViewParams}" />
+		</f:metadata>
+
+</ui:define>
+
 
 	<ui:define name="content">
 
@@ -28,7 +36,7 @@
 					<p:inputText id="minScore" value="#{addEditCourseController.course.minScoreToPass}" />
 
 					<p:outputLabel for="duration" value="#{msg['course.duration']}" />
-					<p:inputText id="duration" value="#{addEditCourseController.course.allowedDuration}" />
+					<p:inputText id="duration" value="#{addEditCourseController.course.allowedDuration}" converter="DurationMinutesConverter" />
 
 
 				</p:panelGrid>
@@ -53,9 +61,10 @@
 					<p:pickList id="questionPickList" value="#{addEditCourseController.questionDualListModel}"
 						var="q" effect="bounce" itemValue="#{q}" itemLabel="#{q.questionText} #{q.code}"  showSourceControls="true" converter="QuestionConverter"
 						showTargetControls="true" showCheckbox="false" responsive="true" showSourceFilter="true"
-						showTargetFilter="true" filterMatchMode="contains" valueChangeListener="#{addEditCourseController.valueChangeMethod}">
+						showTargetFilter="true" filterMatchMode="contains">
 
 						<p:ajax event="select" listener="#{addEditCourseController.onQuestionSelected}" update="question" />
+						<p:ajax event="transfer" listener="#{addEditCourseController.onQuestionTransferred}" update="question" />
 
 						<f:facet name="sourceCaption">Available</f:facet>
 						<f:facet name="targetCaption">Selected</f:facet>
@@ -75,10 +84,10 @@
 			</h:panelGrid>
 
 
-			<p:commandButton ajax="false" action="#{addEditQuestionController.doOk()}" value="#{msg.ok}">
+			<p:commandButton ajax="false" action="#{addEditCourseController.ok()}" value="#{msg.ok}">
 			</p:commandButton>
 
-			<p:commandButton ajax="false" immediate="true" action="#{addEditQuestionController.doCancel()}"
+			<p:commandButton ajax="false" immediate="true" action="#{addEditCourseController.cancel()}"
 				value="#{msg.cancel}">
 			</p:commandButton>
 		</h:form>

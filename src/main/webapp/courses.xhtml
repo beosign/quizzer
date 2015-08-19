@@ -7,19 +7,22 @@
 
 	<ui:define name="content">
 		<h:form>
-			<p:commandButton value="#{msg['course.add']}" action="#{courseController.doCreateCourse()}" />
+			<p:button value="#{msg['course.add']}" outcome="#{courseController.doCreateCourse()}">
+				<f:param name="courseName" value="" />
+			</p:button>
 			<p:commandButton value="#{msg['course.refresh']}" action="#{courseController.doRefresh()}" />
 			<p:commandButton value="#{msg['course.back']}" action="#{courseController.back()}" />
 
 			<p:dataTable border="1" columnClasses="1,column-center,column-center,column-center"
 				rowClasses="tablerow1,tablerow2" value="#{courseController.courses}" var="c">
 				<p:column style="width:20px">
-					<p:commandLink icon="" action="#{courseController.doEditCourse(c)}">
+					<p:link icon="" outcome="#{courseController.doEditCourse(c)}">
+					 	<f:param name="courseName" value="#{c.name}" />
 						<h:graphicImage width="16" height="16" library="images" name="edit.png" />
-					</p:commandLink>
+					</p:link>
 				</p:column>
 				<p:column style="width:20px">
-					<p:commandLink icon="" action="#{coursesController.doDeleteCourse(c)}">
+					<p:commandLink icon="" action="#{courseController.doDeleteCourse(c)}">
 						<h:graphicImage width="16" height="16" library="images" name="delete.png" />
 					</p:commandLink>
 				</p:column>

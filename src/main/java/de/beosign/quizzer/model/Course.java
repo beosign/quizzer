@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -14,11 +15,11 @@ import javax.validation.constraints.Min;
 
 @Entity
 public class Course implements BaseEntity<String> {
-    private String name;
+    private String name = "";
     private Long version;
     private List<Question> questions = new ArrayList<>();
-    private int minScoreToPass = 50;
-    private Duration allowedDuration = Duration.ofMinutes(60);
+    private int minScoreToPass;
+    private Duration allowedDuration;
     private List<Exam> exams = new ArrayList<>();
 
     public Course() {
@@ -68,7 +69,7 @@ public class Course implements BaseEntity<String> {
         this.version = version;
     }
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     public List<Exam> getExams() {
         return exams;
     }

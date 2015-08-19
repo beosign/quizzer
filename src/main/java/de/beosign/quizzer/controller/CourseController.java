@@ -23,8 +23,8 @@ public class CourseController implements Serializable {
     @Inject
     private Logger logger;
 
-    @Inject
-    private AddEditCourseController addEditCourseController;
+    // @Inject
+    // private AddEditCourseController addEditCourseController;
 
     @EJB
     private CourseService courseService;
@@ -53,7 +53,8 @@ public class CourseController implements Serializable {
 
     public String doCreateCourse() {
         logger.info("Create courseService");
-        addEditCourseController.add();
+
+        // addEditCourseController.add();
         return Pages.ADD.getOutcome();
     }
 
@@ -70,7 +71,7 @@ public class CourseController implements Serializable {
     public String doEditCourse(Course course) {
         logger.info("Editing {}", course);
 
-        addEditCourseController.edit(course);
+        // addEditCourseController.edit(course);
         return Pages.EDIT.getOutcome();
     }
 

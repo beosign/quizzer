@@ -2,18 +2,19 @@ package de.beosign.quizzer.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.Logger;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
 
 import de.beosign.quizzer.model.Course;
@@ -42,6 +43,8 @@ public class AddEditCourseController implements Serializable {
 
     private Course course;
 
+    private String courseName;
+
     private boolean isCourseEditMode;
 
     private Question selectedQuestion;
@@ -66,33 +69,25 @@ public class AddEditCourseController implements Serializable {
         }
     }
 
-    @PostConstruct
-    private void init() {
-        logger.debug("Setting up dual list");
-        List<Question> selected = new ArrayList<>();
-        if (course != null) {
-            selected = course.getQuestions();
-        }
-        List<Question> available = questionService.findAll();
+    // @PostConstruct
+    // private void init() {
+    // logger.debug("Setting up members");
+    // course = new Course();
+    // questionDualListModel = new DualListModel<>(new ArrayList<>(), new ArrayList<>());
+    // isCourseEditMode = false;
+    //
+    // }
 
-        available.removeAll(selected);
-        questionDualListModel = new DualListModel<>(available, selected);
+    // public String add() {
+    // return Pages.OK.outcome;
+    // }
 
-    }
+    // public String edit(Course course) {
+    // this.course = course;
+    // isCourseEditMode = true;
 
-    public String add() {
-        isCourseEditMode = false;
-        course = new Course();
-
-        return Pages.OK.outcome;
-    }
-
-    public String edit(Course course) {
-        this.course = course;
-        isCourseEditMode = true;
-
-        return Pages.OK.outcome;
-    }
+    // return Pages.OK.outcome;
+    // }
 
     public String addQuestion() {
         return "";
@@ -144,8 +139,17 @@ public class AddEditCourseController implements Serializable {
         selectedQuestion = (Question) event.getObject();
     }
 
-    public void valueChangeMethod(ValueChangeEvent e) {
-        logger.debug(e.getNewValue().getClass().getName());
+    public void onQuestionTransferred(TransferEvent event) {
+        logger.debug(event.getSource() + ", " + event.getItems() + ", " + event.getComponent().getId() + ", added = " + event.isAdd() + ", removed = "
+                + event.isRemove());
+
+        if (event.isAdd()) {
+            course.getQuestions().addAll((Collection<? extends Question>) event.getItems());
+        } else {
+            course.getQuestions().removeAll(event.getItems());
+        }
+        logger.debug("Current question count: " + course.getQuestions().size());
+
     }
 
     public void setQuestionDualListModel(DualListModel<Question> questionDualListModel) {
@@ -166,6 +170,46 @@ public class AddEditCourseController implements Serializable {
 
     public void setSelectedQuestion(Question selectedQuestion) {
         this.selectedQuestion = selectedQuestion;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    /**
+     * Needs to be transactional because otherwise the removeAll method cannot access the questions (LazyInitException)
+     */
+    @Transactional
+    public void initAfterViewParams() {
+        if (courseName != null && !courseName.isEmpty()) {
+            logger.debug("Editing course {}", courseName);
+            course = courseService.find(courseName).orElse(null);
+        } else {
+            logger.debug("Adding course {}", courseName);
+        }
+
+        List<Question> selected = new ArrayList<>();
+        if (course != null) {
+            isCourseEditMode = true;
+            selected = course.getQuestions();
+        } else {
+            isCourseEditMode = false;
+            course = new Course();
+        }
+
+        logger.debug("Setting up dual list");
+
+        // Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();
+        // String n = params.get("courseName");
+
+        List<Question> available = questionService.findAll();
+
+        available.removeAll(selected);
+        questionDualListModel = new DualListModel<>(available, selected);
     }
 
 }
