@@ -78,17 +78,6 @@ public class AddEditCourseController implements Serializable {
     //
     // }
 
-    // public String add() {
-    // return Pages.OK.outcome;
-    // }
-
-    // public String edit(Course course) {
-    // this.course = course;
-    // isCourseEditMode = true;
-
-    // return Pages.OK.outcome;
-    // }
-
     public String addQuestion() {
         return "";
     }
@@ -172,16 +161,30 @@ public class AddEditCourseController implements Serializable {
         this.selectedQuestion = selectedQuestion;
     }
 
+    /**
+     * Getter for view parameter
+     * 
+     * @return course name
+     */
     public String getCourseName() {
         return courseName;
     }
 
+    /**
+     * Setter for view parameter
+     * 
+     * @param courseName course name
+     */
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
 
     /**
-     * Needs to be transactional because otherwise the removeAll method cannot access the questions (LazyInitException)
+     * This method is called when a view parameter <tt>courseName</tt> is present. This method is the target of a viewAction facet in the jsf corresponding to
+     * this controller. The logic of the init method was moved here, as the parameter will be not available during the init method, but only later when this
+     * method is called. You <b>must</b> call the JSF view using a GET with the request param, otherwise the members will not be initialized correctly!
+     * 
+     * Needs to be transactional because otherwise the removeAll method cannot access the questions (LazyInitException).
      */
     @Transactional
     public void initAfterViewParams() {

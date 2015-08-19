@@ -26,6 +26,17 @@ body {
 	width: 100%;
 }
 
+.ui-link {
+	text-decoration: none;
+}
+
+.ui-link:hover {
+	color: #03528D;
+	font-style: normal;
+	text-decoration: none;
+	text-shadow: 0 1px 1px rgb(113, 190, 255);
+}
+
 #header {
 	height: 48px;
 	border: 1px solid #000;
