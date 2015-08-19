@@ -2,11 +2,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <ui:insert name="metadata">
-	
-</ui:insert> 
+
+</ui:insert>
 
 <h:head>
 	<link href="#{request.contextPath}/resources/css/common-style.css" rel="stylesheet" type="text/css" />
@@ -16,35 +17,35 @@
 </h:head>
 
 <h:body>
+	<f:view locale="#{localeBean.locale}">
+		<div id="page">
 
-	<div id="page">
+			<div id="header">
+				<ui:insert name="header">
+					<div onclick="#{request.contextPath}/index.jsf">Quizzer</div>
+				</ui:insert>
+			</div>
 
-		<div id="header">
-			<ui:insert name="header">
-				<div onclick="#{request.contextPath}/index.jsf">Quizzer</div>
-			</ui:insert>
+			<div id="errors">
+				<ui:insert name="errors">
+					<p:messages id="messages" globalOnly="false" showSummary="true" showDetail="false" />
+
+				</ui:insert>
+			</div>
+
+			<div id="content">
+				<ui:insert name="content">
+
+				</ui:insert>
+			</div>
+
+			<div id="footer">
+				<ui:insert name="footer">
+
+				</ui:insert>
+			</div>
+
 		</div>
-
-		<div id="errors">
-			<ui:insert name="errors">
-				<p:messages id="messages" globalOnly="false" showSummary="true" showDetail="false" />
-
-			</ui:insert>
-		</div>
-
-		<div id="content">
-			<ui:insert name="content">
-
-			</ui:insert>
-		</div>
-
-		<div id="footer">
-			<ui:insert name="footer">
-
-			</ui:insert>
-		</div>
-
-	</div>
-
+	</f:view>
 </h:body>
 </html>

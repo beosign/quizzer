@@ -16,13 +16,13 @@
 			<p:dataTable border="1" columnClasses="1,column-center,column-center,column-center"
 				rowClasses="tablerow1,tablerow2" value="#{courseController.courses}" var="c">
 				<p:column style="width:20px">
-					<p:link icon="" outcome="#{courseController.doEditCourse(c)}">
+					<p:link outcome="#{courseController.doEditCourse(c)}">
 					 	<f:param name="courseName" value="#{c.name}" />
 						<h:graphicImage width="16" height="16" library="images" name="edit.png" />
 					</p:link>
 				</p:column>
 				<p:column style="width:20px">
-					<p:commandLink icon="" action="#{courseController.doDeleteCourse(c)}">
+					<p:commandLink action="#{courseController.doDeleteCourse(c)}">
 						<h:graphicImage width="16" height="16" library="images" name="delete.png" />
 					</p:commandLink>
 				</p:column>

@@ -8,6 +8,8 @@
 	template="WEB-INF/templates/main.xhtml"
 	xmlns:p="http://primefaces.org/ui">
 
+	
+
 	<ui:define name="content">
 		<h2>Welcome</h2>
 
@@ -35,6 +37,19 @@
 				</p:inputText>
 				<h:outputText id="out" value="#{testController.text}" />
 			</h:panelGrid>
+			
+					<h:commandLink styleClass="plain-menu" title="English"
+						action="#{localeBean.changeLocale('en')}">
+						<h:graphicImage width="32" height="32" library="images/flags"
+							name="flag_en.png" />
+					</h:commandLink>
+
+					<h:commandLink styleClass="plain-menu" title="Deutsch"
+						action="#{localeBean.changeLocale('de')}">
+						<h:graphicImage width="32" height="32" library="images/flags"
+							name="flag_de.png" />
+					</h:commandLink>			
+		
 		</h:form>
 	</ui:define>
 </ui:composition>

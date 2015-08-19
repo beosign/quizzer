@@ -10,12 +10,11 @@
 		    <f:viewParam name="courseName" value="#{addEditCourseController.courseName}" />
 		    <f:viewAction action="#{addEditCourseController.initAfterViewParams}" />
 		</f:metadata>
-
+		
 </ui:define>
 
 
 	<ui:define name="content">
-
 
 		<h:form id="form">
 			<h:panelGrid id="grid" columns="2" styleClass="tableborder" cellpadding="5"
@@ -91,7 +90,6 @@
 				value="#{msg.cancel}">
 			</p:commandButton>
 		</h:form>
-
 	</ui:define>
 </ui:composition>
 
