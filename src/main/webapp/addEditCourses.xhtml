@@ -57,7 +57,7 @@
 					    3. A converter must be named here by ConverterID. Using the annotation forClass does not work here
 					    4. Only with a converter, the ValueChangeEvent method yields a value of the entity type (Question), otherwise, you will only get a String
 					-->
-					<p:pickList id="questionPickList" value="#{addEditCourseController.questionDualListModel}"
+					<p:pickList id="questionPickList" styleClass="picklist-exam-question" value="#{addEditCourseController.questionDualListModel}"
 						var="q" effect="bounce" itemValue="#{q}" itemLabel="#{q.questionText} #{q.code}"  showSourceControls="true" converter="QuestionConverter"
 						showTargetControls="true" showCheckbox="false" responsive="true" showSourceFilter="true"
 						showTargetFilter="true" filterMatchMode="contains">

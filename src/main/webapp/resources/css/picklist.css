@@ -1,4 +1,5 @@
-.ui-picklist .ui-exam-questions {
-   width: 305px;
+/* Select all picklists with class ui-picklist-list that have an ancestor of the class picklist-exam-question */
+.picklist-exam-question .ui-picklist-list {
+   width: 250px;
    height: 300px;
 }
