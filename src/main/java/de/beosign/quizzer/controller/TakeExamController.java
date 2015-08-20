@@ -1,7 +1,9 @@
 package de.beosign.quizzer.controller;
 
 import java.io.Serializable;
+import java.util.concurrent.atomic.AtomicLong;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -14,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import de.beosign.quizzer.model.Course;
 import de.beosign.quizzer.model.Exam;
+import de.beosign.quizzer.model.ExamQuestion;
 import de.beosign.quizzer.service.CourseService;
 import de.beosign.quizzer.service.ExamService;
 
@@ -21,6 +24,7 @@ import de.beosign.quizzer.service.ExamService;
 @ConversationScoped
 public class TakeExamController implements Serializable {
     private static final long serialVersionUID = 1L;
+    private static AtomicLong instanceCounter = new AtomicLong(0);
 
     @Inject
     private Logger logger;
@@ -43,8 +47,12 @@ public class TakeExamController implements Serializable {
 
     private String courseName;
 
+    private ExamQuestion currentQuestion;
+    private int currentQuestionIndex;
+
     public enum Pages {
-        START("exam"), CANCEL("index"), SELF("exam?faces-redirect=true"), BACK("index"), END("end-exam");
+        START("start-exam"), NEXT("exam?faces-redirect=true"), PREV("exam?faces-redirect=true"), CANCEL("index"), SELF("exam?faces-redirect=true"), BACK(
+                "index"), FINISH("finish-exam");
 
         private final String outcome;
 
@@ -55,6 +63,11 @@ public class TakeExamController implements Serializable {
         public String getOutcome() {
             return outcome;
         }
+    }
+
+    @PostConstruct
+    private void init() {
+        logger.debug("Creating instance {}", instanceCounter.incrementAndGet());
     }
 
     public void initConversation() {
@@ -68,12 +81,41 @@ public class TakeExamController implements Serializable {
         if (!conversation.isTransient()) {
             conversation.end();
         }
-        return Pages.END.getOutcome();
+        return Pages.BACK.getOutcome();
     }
 
     public String startExam() {
+        return gotoQuestion(0);
+    }
 
-        return Pages.START.getOutcome();
+    public String finishExam() {
+        return Pages.FINISH.getOutcome();
+    }
+
+    public String nextQuestion() {
+        currentQuestionIndex++;
+        logger.debug("Jumping to next question {}", currentQuestionIndex);
+        return gotoQuestion(currentQuestionIndex);
+    }
+
+    public String prevQuestion() {
+
+        currentQuestionIndex--;
+        logger.debug("Jumping to prev question {}", currentQuestionIndex);
+        return gotoQuestion(currentQuestionIndex);
+    }
+
+    public String gotoQuestion(int index) {
+        if (index < 0) {
+            index = 0;
+        }
+
+        logger.debug("Jumping to question {}", index);
+        currentQuestionIndex = index;
+
+        currentQuestion = exam.getExamQuestions().get(currentQuestionIndex);
+
+        return Pages.NEXT.getOutcome();
     }
 
     @Transactional
@@ -113,6 +155,14 @@ public class TakeExamController implements Serializable {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public ExamQuestion getCurrentQuestion() {
+        return currentQuestion;
+    }
+
+    public void setCurrentQuestion(ExamQuestion currentQuestion) {
+        this.currentQuestion = currentQuestion;
     }
 
 }

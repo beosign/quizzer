@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 @IdClass(ExamQuestionKey.class)
@@ -35,7 +34,7 @@ public class ExamQuestion {
     }
 
     @Id
-    @OneToOne
+    @ManyToOne
     public Question getQuestion() {
         return question;
     }
