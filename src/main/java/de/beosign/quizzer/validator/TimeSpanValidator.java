@@ -5,20 +5,16 @@ import java.util.concurrent.TimeUnit;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import javax.validation.Validation;
 
 public class TimeSpanValidator implements ConstraintValidator<TimeSpan, Object> {
-    private TimeSpan timeSpanAnnotation;
     private long minNanos;
     private long maxNanos;
 
     @Override
     public void initialize(TimeSpan timeSpanAnnotation) {
-        this.timeSpanAnnotation = timeSpanAnnotation;
 
         minNanos = getNanoSeconds(timeSpanAnnotation.min(), timeSpanAnnotation.timeUnit());
         maxNanos = getNanoSeconds(timeSpanAnnotation.max(), timeSpanAnnotation.timeUnit());
-        Validation.byDefaultProvider().configure().getDefaultMessageInterpolator();
     }
 
     @Override
