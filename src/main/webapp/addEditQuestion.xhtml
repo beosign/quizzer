@@ -61,7 +61,7 @@
 						<p>#{msg['addEditQuestion.answer.explanation']}</p>
 					</p:panelGrid>
 
-					<p:dataTable border="1" editable="true" editMode="cell"
+					<p:dataTable id="answer-table" border="1" editable="true" editMode="cell"
 						columnClasses="column-center,column-center,column-center"
 						rowClasses="tablerow1,tablerow2"
 						value="#{addEditQuestionController.question.answers}" var="a">
@@ -74,16 +74,16 @@
 									name="delete.png" />
 							</p:commandLink>
 						</p:column>
-						<p:column>
+						<p:column id="answer-column">
 							<f:facet name="header">
 								<h:outputText value="#{msg['addEditQuestion.answer.answer']}" />
 							</f:facet>
-							<p:cellEditor> 
+							<p:cellEditor id="inputTextCellEditor"> 
 								<f:facet name="output">
 									<h:outputText value="#{a.answerText}"></h:outputText>
 								</f:facet>
 								<f:facet name="input">
-									<p:inputText value="#{a.answerText}" style="width:100%" />
+									<p:inputText id="inputTextEdit" value="#{a.answerText}" style="width:100%" />
 								</f:facet>
 							</p:cellEditor>
 						</p:column>
@@ -95,8 +95,10 @@
 						</p:column>
 						
 						<f:facet name="footer" >
-							<div style="text-align: right; font-size: 80%">
-						        <p:commandButton update="form:grid-answers form:type" process="@all" action="#{addEditQuestionController.addNewAnswer}" value="#{msg['addEditQuestion.answer.button.add']}" />						        
+							<div class="table-button">
+						        <p:commandButton onclick="document.getElementById('form:answer-table:answer-column:inputTextEdit').blur()" update="form:grid-answers form:type" process="@all" action="#{addEditQuestionController.addNewAnswer}" value="#{msg['addEditQuestion.answer.button.add']}">
+						        	
+						        </p:commandButton>						        
 					        </div>
 					    </f:facet>						
 					</p:dataTable>

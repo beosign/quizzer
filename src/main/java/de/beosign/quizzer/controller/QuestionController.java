@@ -65,7 +65,9 @@ public class QuestionController implements Serializable {
     }
 
     public String doRefresh() {
-        logger.info("Refreshing question");
+        logger.info("Refreshing questions");
+
+        questions = questionService.findAll();
 
         return Pages.SELF.getOutcome();
     }
