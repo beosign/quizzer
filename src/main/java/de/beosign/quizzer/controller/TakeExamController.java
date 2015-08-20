@@ -50,9 +50,15 @@ public class TakeExamController implements Serializable {
     private ExamQuestion currentQuestion;
     private int currentQuestionIndex;
 
+    /**
+     * One must use an empty {@link String} as action result in order to allow JSF to refresh the page correctly, not the same jsf page. When returning
+     * <code>exam</code>> without redirecting, the button click only worked on each second click!!
+     * 
+     * @author Florian Dahlmanns
+     *
+     */
     public enum Pages {
-        START("start-exam"), NEXT("exam?faces-redirect=true"), PREV("exam?faces-redirect=true"), CANCEL("index"), SELF("exam?faces-redirect=true"), BACK(
-                "index"), FINISH("finish-exam");
+        START("start-exam"), NEXT(""), PREV(""), CANCEL("index"), SELF("exam?faces-redirect=true"), BACK("index"), FINISH("finish-exam");
 
         private final String outcome;
 
@@ -85,7 +91,8 @@ public class TakeExamController implements Serializable {
     }
 
     public String startExam() {
-        return gotoQuestion(0);
+        gotoQuestion(0);
+        return Pages.SELF.outcome;
     }
 
     public String finishExam() {

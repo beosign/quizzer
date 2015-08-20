@@ -17,13 +17,13 @@
 		<h:form>
 			<h:outputText value="#{takeExamController.currentQuestion.question.questionText}" />
 			
-			<p:commandButton   action="#{takeExamController.prevQuestion()}" icon="ui-icon ui-icon-triangle-1-w" value="#{msg['prev']}" >
+			<p:commandButton ajax="false"  action="#{takeExamController.prevQuestion()}" icon="ui-icon ui-icon-triangle-1-w" value="#{msg['prev']}" >
 			
 			</p:commandButton>
-			<p:commandButton   action="#{takeExamController.nextQuestion()}" icon="ui-icon ui-icon-triangle-1-e" value="#{msg['next']}">
+			<p:commandButton ajax="false"  action="#{takeExamController.nextQuestion()}" icon="ui-icon ui-icon-triangle-1-e" value="#{msg['next']}">
 			
 			</p:commandButton>
-			<p:commandButton  action="#{takeExamController.finishExam()}" icon="ui-icon ui-icon-seek-end" value="#{msg['next']}">
+			<p:commandButton  ajax="false" action="#{takeExamController.finishExam()}" icon="ui-icon ui-icon-seek-end" value="#{msg['next']}">
 			
 			</p:commandButton>
 		</h:form>
