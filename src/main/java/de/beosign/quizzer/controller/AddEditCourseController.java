@@ -95,7 +95,10 @@ public class AddEditCourseController implements Serializable {
     }
 
     public String ok() {
-        ValidationUtil.addValidationErrorsToFacesContext(course, facesContext);
+
+        if (ValidationUtil.addValidationErrorsToFacesContext(course, facesContext).size() > 0) {
+            return Pages.VALIDATION_FAILED.getOutcome();
+        }
 
         if (isCourseEditMode) {
             courseService.update(course);

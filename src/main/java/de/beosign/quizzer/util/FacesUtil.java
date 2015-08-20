@@ -5,8 +5,10 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import de.beosign.quizzer.logging.Log;
@@ -51,6 +53,29 @@ public class FacesUtil {
     public static Locale getCurrentLocale() {
         return FacesContext.getCurrentInstance().getViewRoot().getLocale();
 
+    }
+
+    public static String getComponentLabel(FacesContext facesContext, UIComponent component) {
+        Object label = component.getAttributes().get("label");
+        if (label != null && (label instanceof String) && ((String) label).length() == 0) {
+            ValueExpression expression = component.getValueExpression("label");
+            if (expression != null) {
+                if (expression != null) {
+                    Object objectExp = expression.getValue(facesContext.getELContext());
+                    if (objectExp != null) {
+                        return objectExp.toString();
+                    }
+                }
+
+            }
+
+        }
+
+        if (label != null) {
+            return label.toString();
+        } else {
+            return component.getClientId(facesContext);
+        }
     }
 
 }

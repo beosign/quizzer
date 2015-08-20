@@ -3,6 +3,7 @@ package de.beosign.quizzer.model;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,6 +13,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import de.beosign.quizzer.validator.TimeSpan;
 
 @Entity
 public class Course implements BaseEntity<String> {
@@ -25,6 +30,7 @@ public class Course implements BaseEntity<String> {
     public Course() {
     }
 
+    @Size(min = 1)
     @ManyToMany
     public List<Question> getQuestions() {
         return questions;
@@ -43,6 +49,7 @@ public class Course implements BaseEntity<String> {
         this.minScoreToPass = minScoreToPass;
     }
 
+    @TimeSpan(min = 10, max = 120, timeUnit = TimeUnit.MINUTES)
     public Duration getAllowedDuration() {
         return allowedDuration;
     }
@@ -51,6 +58,7 @@ public class Course implements BaseEntity<String> {
         this.allowedDuration = allowedDuration;
     }
 
+    @NotNull
     @Id
     public String getName() {
         return name;

@@ -4,10 +4,13 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.logging.log4j.Logger;
@@ -15,6 +18,7 @@ import org.primefaces.model.DualListModel;
 
 import de.beosign.quizzer.logging.Log;
 import de.beosign.quizzer.model.Question;
+import de.beosign.quizzer.util.FacesUtil;
 
 /**
  * Converter for PrimeFaces' PickList ({@link DualListModel}). To retrieve the object, this converter searches both lists for the given String-based key, namely
@@ -29,6 +33,8 @@ import de.beosign.quizzer.model.Question;
 public class DurationMinutesConverter implements Converter {
     public static final String DURATION_MINUTES_CONVERTER = "DurationMinutesConverter";
 
+    @Inject
+    private Logger logger;
     private static final Logger LOGGER = Log.logger();
 
     @Override
@@ -38,7 +44,14 @@ public class DurationMinutesConverter implements Converter {
         if (value == null || value.isEmpty()) {
             return Duration.ZERO;
         } else {
-            return Duration.ofMinutes(Long.valueOf(value));
+            try {
+                return Duration.ofMinutes(Long.valueOf(value));
+            } catch (NumberFormatException e) {
+                logger.info(e.getMessage(), e);
+                FacesMessage fm = FacesUtil.getFacesMessage(context, FacesMessage.SEVERITY_ERROR, "converter.integral.invalid",
+                        FacesUtil.getComponentLabel(context, component), value);
+                throw new ConverterException(fm);
+            }
         }
 
     }
