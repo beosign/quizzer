@@ -3,6 +3,7 @@ package de.beosign.quizzer.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -49,7 +50,7 @@ public class ExamQuestion {
      * 
      * @return the given answers.
      */
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "ExamQuestionAnswers", joinColumns = { @JoinColumn(name = "exam_id"), @JoinColumn(name = "question_id") },
             inverseJoinColumns = { @JoinColumn(name = "answer_id") })
     public List<Answer> getGivenAnswers() {

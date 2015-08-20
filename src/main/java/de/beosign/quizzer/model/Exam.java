@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -17,6 +19,8 @@ public class Exam extends LongKeyBaseEntity {
 
     private Date startTime;
     private Date endTime;
+
+    private User user;
 
     public Exam() {
     }
@@ -48,13 +52,22 @@ public class Exam extends LongKeyBaseEntity {
         this.endTime = endTime;
     }
 
-    @OneToMany(mappedBy = "exam")
+    @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
     public List<ExamQuestion> getExamQuestions() {
         return examQuestions;
     }
 
     public void setExamQuestions(List<ExamQuestion> examQuestions) {
         this.examQuestions = examQuestions;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

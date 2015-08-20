@@ -75,6 +75,12 @@ public class CourseController implements Serializable {
         return Pages.EDIT.getOutcome();
     }
 
+    public String doTakeExam(Course course) {
+        logger.info("Taking exam for {}", course);
+
+        return TakeExamController.Pages.START.getOutcome();
+    }
+
     public String doDeleteCourse(Course course) {
         logger.info("Deleting {}", course);
 
