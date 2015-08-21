@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Locale;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -17,6 +18,9 @@ public class LocaleBean implements Serializable {
     @Inject
     private Logger logger;
 
+    @Inject
+    private FacesContext facesContext;
+
     private Locale locale;
 
     public void changeLocale(String locale) {
@@ -25,6 +29,9 @@ public class LocaleBean implements Serializable {
     }
 
     public Locale getLocale() {
+        if (locale == null) {
+            locale = facesContext.getViewRoot().getLocale();
+        }
         logger.debug("locale: {}", locale);
         return locale;
     }
