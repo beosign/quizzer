@@ -41,7 +41,7 @@ public abstract class LongKeyBaseEntity implements BaseEntity<Long> {
     protected Logger logger = LogManager.getLogger();
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }

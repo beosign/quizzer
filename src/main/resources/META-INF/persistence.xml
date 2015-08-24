@@ -36,6 +36,7 @@
         	
         	<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
      		<property name="hibernate.hbm2ddl.auto" value="update"/>
+     		<property name="hibernate.id.new_generator_mappings" value="true"/>
 				
 		</properties>
 	
