@@ -31,8 +31,7 @@ public class QuestionController implements Serializable {
     private List<Question> questions;
 
     public enum Pages {
-        TESTADD("index"), ADD("addEditQuestion"), EDIT("addEditQuestion"), DELETE("questions?faces-redirect=true"), SELF("questions?faces-redirect=true"),
-        BACK("index");
+        TESTADD("index"), ADD("addEditQuestion"), EDIT("addEditQuestion"), DELETE(""), SELF("questions?faces-redirect=true"), BACK("index");
 
         private final String outcome;
 
@@ -89,6 +88,7 @@ public class QuestionController implements Serializable {
         logger.info("Deleting question {}", question);
 
         questionService.delete(question.getId());
+        doRefresh();
 
         return Pages.DELETE.getOutcome();
     }

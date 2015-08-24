@@ -14,12 +14,12 @@
 		<h:form>
 			<p:commandButton value="#{msg['question.add']}"
 				action="#{questionController.doCreateQuestion()}" />
-			<p:commandButton value="#{msg['question.refresh']}"
+			<p:commandButton ajax="false" value="#{msg['question.refresh']}"
 				action="#{questionController.doRefresh()}" />
 			<p:commandButton value="#{msg['question.back']}"
 				action="#{questionController.back()}" />
 
-			<p:dataTable border="1"
+			<p:dataTable id="question-table" border="1"
 				columnClasses="1,column-center,column-center,column-center"
 				rowClasses="tablerow1,tablerow2"
 				value="#{questionController.questions}" var="q">
@@ -31,7 +31,7 @@
 					</p:commandLink>
 				</p:column>
 				<p:column style="width:20px">
-					<p:commandLink icon=""
+					<p:commandLink update="question-table" icon=""
 						action="#{questionController.doDeleteQuestion(q)}">
 						<h:graphicImage width="16" height="16" library="images"
 							name="delete.png" />
