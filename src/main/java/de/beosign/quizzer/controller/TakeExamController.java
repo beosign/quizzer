@@ -14,9 +14,13 @@ import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.Logger;
 
+import de.beosign.quizzer.model.Answer;
+import de.beosign.quizzer.model.BooleanExamQuestionAnswer;
 import de.beosign.quizzer.model.Course;
 import de.beosign.quizzer.model.Exam;
 import de.beosign.quizzer.model.ExamQuestion;
+import de.beosign.quizzer.model.ExamQuestionAnswer;
+import de.beosign.quizzer.model.TextExamQuestionAnswer;
 import de.beosign.quizzer.service.CourseService;
 import de.beosign.quizzer.service.ExamService;
 
@@ -90,6 +94,7 @@ public class TakeExamController implements Serializable {
         return Pages.BACK.getOutcome();
     }
 
+    @Transactional
     public String startExam() {
         gotoQuestion(0);
         return Pages.SELF.outcome;
@@ -99,12 +104,26 @@ public class TakeExamController implements Serializable {
         return Pages.FINISH.getOutcome();
     }
 
+    @Transactional
     public String nextQuestion() {
+        // save changes by manually updating each single answer
+        for (ExamQuestionAnswer a : currentQuestion.getGivenAnswers()) {
+            if (a instanceof BooleanExamQuestionAnswer) {
+                logger.debug("Answer: " + ((BooleanExamQuestionAnswer) a).isCorrect());
+
+            }
+            examService.updateExamQuestionAnswer(a);
+        }
+
+        // TODO The following line throws an exception: Detached entity passed to persist: Exam????
+        // examService.update(exam);
+
         currentQuestionIndex++;
         logger.debug("Jumping to next question {}", currentQuestionIndex);
         return gotoQuestion(currentQuestionIndex);
     }
 
+    @Transactional
     public String prevQuestion() {
 
         currentQuestionIndex--;
@@ -120,14 +139,34 @@ public class TakeExamController implements Serializable {
         logger.debug("Jumping to question {}", index);
         currentQuestionIndex = index;
 
+        exam = examService.find(exam.getId()).get();
         currentQuestion = exam.getExamQuestions().get(currentQuestionIndex);
+
+        if (currentQuestion.getGivenAnswers().isEmpty()) {
+
+            switch (currentQuestion.getQuestion().getType()) {
+            case TEXT:
+                TextExamQuestionAnswer textAnswer = new TextExamQuestionAnswer(currentQuestion, currentQuestion.getQuestion().getAnswers().get(0), null);
+                currentQuestion.getGivenAnswers().add(textAnswer);
+                break;
+            case SINGLE:
+            case MULTIPLE:
+                for (Answer a : currentQuestion.getQuestion().getAnswers()) {
+                    BooleanExamQuestionAnswer boolAnswer = new BooleanExamQuestionAnswer(currentQuestion, a, false);
+                    currentQuestion.getGivenAnswers().add(boolAnswer);
+                }
+            default:
+                break;
+            }
+            // Collections.shuffle(currentQuestion.getGivenAnswers());
+        }
 
         return Pages.NEXT.getOutcome();
     }
 
     @Transactional
     public void initAfterViewParams() {
-        if (courseName != null) {
+        if (courseName != null && exam == null) {
             logger.debug("Taking exam for course {}", courseName);
 
             course = courseService.find(courseName).orElseThrow(() -> new IllegalArgumentException("No course found with name " + courseName));
@@ -135,8 +174,8 @@ public class TakeExamController implements Serializable {
 
             logger.info("Created exam {} from course {}", exam, course);
 
-        } else {
-            throw new IllegalArgumentException("No examId found in GET parameter");
+        } else if (exam == null) {
+            throw new IllegalArgumentException("No courseName found in GET parameter");
         }
     }
 

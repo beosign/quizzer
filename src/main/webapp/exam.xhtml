@@ -4,27 +4,50 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="WEB-INF/templates/main.xhtml" xmlns:p="http://primefaces.org/ui">
-	
+
 	<ui:define name="metadata">
 		<f:event listener="#{takeExamController.initConversation()}" type="preRenderView" />
 		<f:metadata>
-		    <f:viewParam name="courseName" value="#{takeExamController.courseName}" />
-		    <f:viewAction action="#{takeExamController.initAfterViewParams}" />
+			<f:viewParam name="courseName" value="#{takeExamController.courseName}" />
+			<f:viewAction action="#{takeExamController.initAfterViewParams}" />
 		</f:metadata>
 	</ui:define>
 
 	<ui:define name="content">
 		<h:form>
-			<h:outputText value="#{takeExamController.currentQuestion.question.questionText}" />
-			
-			<p:commandButton ajax="false"  action="#{takeExamController.prevQuestion()}" icon="ui-icon ui-icon-triangle-1-w" value="#{msg['prev']}" >
-			
+			<p:panel header="#{takeExamController.currentQuestion.question.code}"
+				footer="#{takeExamController.currentQuestion.question.points} #{msg['question.points']}">
+				<p:panelGrid columns="3">
+					<p:column colspan="3">
+						<h:outputText value="#{takeExamController.currentQuestion.question.questionText}" />
+					</p:column>
+
+					<p:column colspan="2">
+						<p:dataTable value="#{takeExamController.currentQuestion.givenAnswers}" var="a">
+							<p:column>
+								<h:selectBooleanCheckbox value="#{a.correct}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{a.answer.answerText}" />
+							</p:column>
+						</p:dataTable>
+					</p:column>
+
+				</p:panelGrid>
+
+			</p:panel>
+
+			<p:commandButton ajax="false" action="#{takeExamController.prevQuestion()}"
+				icon="ui-icon ui-icon-triangle-1-w" value="#{msg['prev']}">
+
 			</p:commandButton>
-			<p:commandButton ajax="false"  action="#{takeExamController.nextQuestion()}" icon="ui-icon ui-icon-triangle-1-e" value="#{msg['next']}">
-			
+			<p:commandButton ajax="false" action="#{takeExamController.nextQuestion()}"
+				icon="ui-icon ui-icon-triangle-1-e" value="#{msg['next']}">
+
 			</p:commandButton>
-			<p:commandButton  ajax="false" action="#{takeExamController.finishExam()}" icon="ui-icon ui-icon-seek-end" value="#{msg['next']}">
-			
+			<p:commandButton ajax="false" action="#{takeExamController.finishExam()}"
+				icon="ui-icon ui-icon-seek-end" value="#{msg['next']}">
+
 			</p:commandButton>
 		</h:form>
 	</ui:define>

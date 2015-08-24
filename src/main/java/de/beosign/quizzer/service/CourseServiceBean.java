@@ -44,6 +44,7 @@ public class CourseServiceBean extends DefaultService<Course, String> implements
             ExamQuestion eq = new ExamQuestion();
             eq.setExam(exam);
             eq.setQuestion(q);
+
             exam.getExamQuestions().add(eq);
         }
 

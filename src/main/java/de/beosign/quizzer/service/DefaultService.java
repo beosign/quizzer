@@ -46,7 +46,7 @@ public abstract class DefaultService<T extends BaseEntity<K>, K> implements Serv
 
         try {
             em.persist(t);
-            em.flush();
+            // em.flush();
             return t;
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
