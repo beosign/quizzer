@@ -31,6 +31,7 @@
 			</p:panelGrid>
 			
 			<p:commandButton value="#{msg['start']}" action="#{takeExamController.startExam()}" />
+			<p:button value="#{msg['back']}" outcome="#{takeExamController.backToCourses()}" />
 		</h:form>
 	</ui:define>
 </ui:composition>

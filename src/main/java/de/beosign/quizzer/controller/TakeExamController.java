@@ -64,7 +64,8 @@ public class TakeExamController implements Serializable {
      *
      */
     public enum Pages {
-        START("start-exam"), NEXT(""), PREV(""), CANCEL("index"), SELF("exam?faces-redirect=true"), BACK("index"), FINISH("finish-exam"), CHECK_ANSWERS("");
+        START("start-exam"), NEXT(""), PREV(""), CANCEL("index"), SELF("exam?faces-redirect=true"), BACK("index"), FINISH("finish-exam"), CHECK_ANSWERS(""),
+        BACK_COURSES("courses");
 
         private final String outcome;
 
@@ -94,6 +95,10 @@ public class TakeExamController implements Serializable {
             conversation.end();
         }
         return Pages.BACK.getOutcome();
+    }
+
+    public String backToCourses() {
+        return Pages.BACK_COURSES.getOutcome();
     }
 
     @Transactional
