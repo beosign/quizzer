@@ -2,6 +2,7 @@ package de.beosign.quizzer.model;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 @Entity
 @DiscriminatorValue("T")
@@ -25,6 +26,17 @@ public class TextExamQuestionAnswer extends ExamQuestionAnswer {
 
     public void setAnswerText(String answerText) {
         this.answerText = answerText;
+    }
+
+    @Override
+    @Transient
+    public boolean isGivenAnswerCorrect() {
+
+        if (getAnswer().getAnswerText().trim().equalsIgnoreCase(answerText)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

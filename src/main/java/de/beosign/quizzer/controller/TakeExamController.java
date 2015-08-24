@@ -30,6 +30,8 @@ public class TakeExamController implements Serializable {
     private static final long serialVersionUID = 1L;
     private static AtomicLong instanceCounter = new AtomicLong(0);
 
+    private boolean showAnswers = false;
+
     @Inject
     private Logger logger;
 
@@ -62,7 +64,7 @@ public class TakeExamController implements Serializable {
      *
      */
     public enum Pages {
-        START("start-exam"), NEXT(""), PREV(""), CANCEL("index"), SELF("exam?faces-redirect=true"), BACK("index"), FINISH("finish-exam");
+        START("start-exam"), NEXT(""), PREV(""), CANCEL("index"), SELF("exam?faces-redirect=true"), BACK("index"), FINISH("finish-exam"), CHECK_ANSWERS("");
 
         private final String outcome;
 
@@ -106,14 +108,7 @@ public class TakeExamController implements Serializable {
 
     @Transactional
     public String nextQuestion() {
-        // save changes by manually updating each single answer
-        for (ExamQuestionAnswer a : currentQuestion.getGivenAnswers()) {
-            if (a instanceof BooleanExamQuestionAnswer) {
-                logger.debug("Answer: " + ((BooleanExamQuestionAnswer) a).isCorrect());
-
-            }
-            examService.updateExamQuestionAnswer(a);
-        }
+        saveGivenAnswers();
 
         // TODO The following line throws an exception: Detached entity passed to persist: Exam????
         // examService.update(exam);
@@ -123,8 +118,20 @@ public class TakeExamController implements Serializable {
         return gotoQuestion(currentQuestionIndex);
     }
 
+    private void saveGivenAnswers() {
+        // save changes by manually updating each single answer
+        for (ExamQuestionAnswer a : currentQuestion.getGivenAnswers()) {
+            if (a instanceof BooleanExamQuestionAnswer) {
+                logger.debug("Answer: " + ((BooleanExamQuestionAnswer) a).isCorrect());
+
+            }
+            examService.updateExamQuestionAnswer(a);
+        }
+    }
+
     @Transactional
     public String prevQuestion() {
+        saveGivenAnswers();
 
         currentQuestionIndex--;
         logger.debug("Jumping to prev question {}", currentQuestionIndex);
@@ -135,6 +142,8 @@ public class TakeExamController implements Serializable {
         if (index < 0) {
             index = 0;
         }
+
+        showAnswers = false;
 
         logger.debug("Jumping to question {}", index);
         currentQuestionIndex = index;
@@ -162,6 +171,13 @@ public class TakeExamController implements Serializable {
         }
 
         return Pages.NEXT.getOutcome();
+    }
+
+    public String checkAnswers() {
+
+        showAnswers = true;
+
+        return Pages.CHECK_ANSWERS.getOutcome();
     }
 
     @Transactional
@@ -211,4 +227,28 @@ public class TakeExamController implements Serializable {
         this.currentQuestion = currentQuestion;
     }
 
+    public boolean isShowAnswers() {
+        return showAnswers;
+    }
+
+    public String getAnswerStyle(ExamQuestionAnswer answer) {
+        if (!showAnswers) {
+            return "";
+        } else {
+            String style = "";
+            if (answer.getAnswer().isCorrect()) {
+                style += "color: green";
+            } else {
+                if (!answer.isGivenAnswerCorrect()) {
+                    style += "color: red";
+                } else {
+                    style += "color: grey";
+                }
+            }
+            if (!answer.isGivenAnswerCorrect()) {
+                style += "; font-style: italic";
+            }
+            return style;
+        }
+    }
 }

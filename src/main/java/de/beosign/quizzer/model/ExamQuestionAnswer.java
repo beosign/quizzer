@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 @DiscriminatorColumn(name = "D", length = 1)
@@ -29,5 +30,8 @@ public abstract class ExamQuestionAnswer extends LongKeyBaseEntity {
     public void setExamQuestion(ExamQuestion examQuestion) {
         this.examQuestion = examQuestion;
     }
+
+    @Transient
+    public abstract boolean isGivenAnswerCorrect();
 
 }

@@ -2,6 +2,7 @@ package de.beosign.quizzer.model;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 @Entity
 @DiscriminatorValue("B")
@@ -30,6 +31,12 @@ public class BooleanExamQuestionAnswer extends ExamQuestionAnswer {
     @Override
     public String toString() {
         return "BooleanExamQuestionAnswer [isCorrect=" + isCorrect + "]";
+    }
+
+    @Transient
+    @Override
+    public boolean isGivenAnswerCorrect() {
+        return getAnswer().isCorrect() == isCorrect;
     }
 
 }
