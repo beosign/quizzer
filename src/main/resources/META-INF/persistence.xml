@@ -43,6 +43,29 @@
 
 	</persistence-unit>
 	
+	<persistence-unit name="quizzer-test"  transaction-type="RESOURCE_LOCAL">
+		<description>
+			Persistence settings for integration testing Quizzer
+		</description>
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		  
+
+		 
+		<properties>			
+        	<property name="hibernate.show_sql" value="true" />
+            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:QuizzerDB;create=true" />
+            <property name="javax.persistence.jdbc.user" value="" />
+            <property name="javax.persistence.jdbc.password" value="" />
+        
+        	<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenFiveDialect"/>
+     		<property name="hibernate.hbm2ddl.auto" value="update"/>
+     		<property name="hibernate.id.new_generator_mappings" value="true"/>
+				
+		</properties>
+	
+
+	</persistence-unit>
 	
  	
 </persistence>
