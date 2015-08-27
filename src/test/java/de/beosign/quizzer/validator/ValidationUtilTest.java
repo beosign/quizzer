@@ -1,4 +1,4 @@
-package de.beosign.cashflow.quizzer.validator;
+package de.beosign.quizzer.validator;
 
 import static org.junit.Assert.*;
 
