@@ -13,9 +13,9 @@
 	<ui:define name="content">
 		<h2>Welcome</h2>
 
-		<h:form>
-			<p:commandButton value="Questions" action="questions"></p:commandButton>
-			<p:commandButton value="Courses" action="courses"></p:commandButton>
+		<h:form id="form">
+			<p:commandButton id="btn-questions" value="Questions" action="questions"></p:commandButton>
+			<p:commandButton id="btn-courses" value="Courses" action="courses"></p:commandButton>
 			<p:commandButton value="Test queries"
 				action="#{testController.testQueries()}"></p:commandButton>
 			<p:commandButton value="Test queries Criteria API"

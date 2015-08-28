@@ -9,14 +9,14 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
-		<h2 class="#{layoutController.headerStyle}">#{msg['question.questions']}</h2>
+		<h2 id="question-heading" class="#{layoutController.headerStyle}">#{msg['question.questions']}</h2>
 		
-		<h:form>
-			<p:commandButton value="#{msg['question.add']}"
+		<h:form id="form">
+			<p:commandButton id="btn-add" value="#{msg['question.add']}"
 				action="#{questionController.doCreateQuestion()}" />
-			<p:commandButton ajax="false" value="#{msg['question.refresh']}"
+			<p:commandButton id="btn-refresh" ajax="false" value="#{msg['question.refresh']}"
 				action="#{questionController.doRefresh()}" />
-			<p:commandButton value="#{msg['question.back']}"
+			<p:commandButton id="btn-back" value="#{msg['question.back']}"
 				action="#{questionController.back()}" />
 
 			<p:dataTable id="question-table" border="1"

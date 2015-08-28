@@ -91,12 +91,12 @@
 							<f:facet name="header">
 								<h:outputText value="#{msg['addEditQuestion.answer.correct']}" />
 							</f:facet>
-							<p:selectBooleanCheckbox value="#{a.correct}" style="align:center" />
+							<p:selectBooleanCheckbox id="chk-answer-correct" value="#{a.correct}" style="align:center" />
 						</p:column>
 						
 						<f:facet name="footer" >
 							<div class="table-button">
-						        <p:commandButton onclick="document.getElementById('form:answer-table:answer-column:inputTextEdit').blur()" update="form:grid-answers form:type" process="@all" action="#{addEditQuestionController.addNewAnswer}" value="#{msg['addEditQuestion.answer.button.add']}">
+						        <p:commandButton id="btn-add-answer" onclick="document.getElementById('form:answer-table:answer-column:inputTextEdit').blur()" update="form:grid-answers form:type" process="@all" action="#{addEditQuestionController.addNewAnswer}" value="#{msg['addEditQuestion.answer.button.add']}">
 						        	
 						        </p:commandButton>						        
 					        </div>
@@ -106,11 +106,11 @@
 			</h:panelGrid>
 
 
-			<p:commandButton ajax="false"
+			<p:commandButton ajax="false" id="btn-ok"
 				action="#{addEditQuestionController.doOk()}" value="#{msg.ok}">
 			</p:commandButton>
 
-			<p:commandButton ajax="false" immediate="true"
+			<p:commandButton ajax="false" immediate="true" id="btn-cancel"
 				action="#{addEditQuestionController.doCancel()}"
 				value="#{msg.cancel}">
 			</p:commandButton>
