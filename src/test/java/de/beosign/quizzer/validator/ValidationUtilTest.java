@@ -6,32 +6,33 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.jglue.cdiunit.CdiRunner;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
-import de.beosign.quizzer.validator.ValidationUtil;
-
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(value = FacesContext.class)
+@RunWith(CdiRunner.class)
 public class ValidationUtilTest {
 
     /**
      * Unit under test.
      * private ValidationUtil validationUtil;
      */
+    @Inject
+    private ValidationUtil validationUtil;
 
     private FacesContext facesContext;
 
     @Before
     public void setup() {
         facesContext = PowerMockito.mock(FacesContext.class);
+        Assert.assertNotNull(validationUtil);
 
     }
 
@@ -41,7 +42,7 @@ public class ValidationUtilTest {
         c.minFive = 5;
         c.notNullString = "Hi";
 
-        List<FacesMessage> messages = ValidationUtil.addValidationErrorsToFacesContext(c, facesContext);
+        List<FacesMessage> messages = validationUtil.addValidationErrorsToFacesContext(c);
         assertEquals("No messages expected", 0, messages.size());
     }
 
@@ -51,7 +52,7 @@ public class ValidationUtilTest {
         c.minFive = 2;
         c.notNullString = "Hi";
 
-        List<FacesMessage> messages = ValidationUtil.addValidationErrorsToFacesContext(c, facesContext);
+        List<FacesMessage> messages = validationUtil.addValidationErrorsToFacesContext(c);
         assertEquals("Exactly one message expected", 1, messages.size());
 
     }
@@ -62,7 +63,7 @@ public class ValidationUtilTest {
         c.minFive = 2;
         c.notNullString = null;
 
-        List<FacesMessage> messages = ValidationUtil.addValidationErrorsToFacesContext(c, facesContext);
+        List<FacesMessage> messages = validationUtil.addValidationErrorsToFacesContext(c);
         assertEquals("Two messages expected", 2, messages.size());
 
     }

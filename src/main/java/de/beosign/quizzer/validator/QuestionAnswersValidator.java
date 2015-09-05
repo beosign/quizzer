@@ -2,17 +2,32 @@ package de.beosign.quizzer.validator;
 
 import java.util.List;
 
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.apache.logging.log4j.Logger;
 
+import de.beosign.quizzer.controller.QuestionController;
 import de.beosign.quizzer.logging.Log;
 import de.beosign.quizzer.model.Answer;
 import de.beosign.quizzer.model.Question;
+import de.beosign.quizzer.service.QuestionService;
 
+@RequestScoped
 public class QuestionAnswersValidator implements ConstraintValidator<QuestionAnswersValid, List<Answer>> {
     private static final Logger LOGGER = Log.logger();
+
+    @Inject
+    private QuestionController questionController;
+
+    @Inject
+    private QuestionService questionService;
+
+    @EJB
+    private QuestionService questionServiceEJB;
 
     @Override
     public void initialize(QuestionAnswersValid constraintAnnotation) {
@@ -22,6 +37,10 @@ public class QuestionAnswersValidator implements ConstraintValidator<QuestionAns
 
     @Override
     public boolean isValid(List<Answer> answers, ConstraintValidatorContext context) {
+        LOGGER.debug("Controller: " + questionController);
+        LOGGER.debug("Question Service: " + questionService);
+        LOGGER.debug("Question Service EJB: " + questionServiceEJB);
+
         if (answers.size() == 0) {
             return false;
         }
