@@ -1,11 +1,17 @@
 package de.beosign.quizzer.jpatest;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.util.AnnotationLiteral;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -15,6 +21,7 @@ import org.apache.logging.log4j.Logger;
 import de.beosign.quizzer.jpatest.Address.Type;
 import de.beosign.quizzer.jpatest.Order.OrderType;
 import de.beosign.quizzer.jpatest.Person.Sex;
+import de.beosign.quizzer.service.QuestionService;
 
 /**
  * Used during startup to insert some test data.
@@ -32,6 +39,9 @@ public class TestOrderStartupBean {
 
     @Inject
     private Logger logger;
+
+    @Inject
+    private BeanManager beanManager;
 
     @PostConstruct
     private void init() {
@@ -118,6 +128,22 @@ public class TestOrderStartupBean {
         em.persist(homer);
         em.persist(marge);
 
+        List<Timesheet> tslist = em.createQuery("from Timesheet t", Timesheet.class).getResultList();
+
+        tslist.forEach(ts -> logger.debug(ts.getEmployee().getLastname()));
+
+        listAllBeans();
+
     }
 
+    private void listAllBeans() {
+
+        Set<Bean<?>> beans = beanManager.getBeans(Object.class, new AnnotationLiteral<Any>() {
+        });
+        for (Bean<?> bean : beans) {
+            logger.debug(bean.getBeanClass().getName());
+        }
+
+        logger.debug("Question Service beans:" + beanManager.getBeans(QuestionService.class));
+    }
 }
