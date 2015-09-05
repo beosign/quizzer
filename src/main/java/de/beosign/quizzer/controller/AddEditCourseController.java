@@ -41,6 +41,9 @@ public class AddEditCourseController implements Serializable {
     @EJB
     private QuestionService questionService;
 
+    @Inject
+    private ValidationUtil validationUtil;
+
     private Course course;
 
     private String courseName;
@@ -96,7 +99,7 @@ public class AddEditCourseController implements Serializable {
 
     public String ok() {
 
-        if (ValidationUtil.addValidationErrorsToFacesContext(course, facesContext).size() > 0) {
+        if (validationUtil.addValidationErrorsToFacesContext(course).size() > 0) {
             return Pages.VALIDATION_FAILED.getOutcome();
         }
 

@@ -3,7 +3,6 @@ package de.beosign.quizzer.validator;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -16,7 +15,6 @@ import de.beosign.quizzer.model.Answer;
 import de.beosign.quizzer.model.Question;
 import de.beosign.quizzer.service.QuestionService;
 
-@RequestScoped
 public class QuestionAnswersValidator implements ConstraintValidator<QuestionAnswersValid, List<Answer>> {
     private static final Logger LOGGER = Log.logger();
 

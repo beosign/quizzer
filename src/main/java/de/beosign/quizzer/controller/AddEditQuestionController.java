@@ -31,6 +31,9 @@ public class AddEditQuestionController implements Serializable {
     private FacesContext facesContext;
 
     @Inject
+    private ValidationUtil validationUtil;
+
+    @Inject
     @Added
     private Event<Question> questionAddedEvent;
 
@@ -120,7 +123,7 @@ public class AddEditQuestionController implements Serializable {
          * See http://stackoverflow.com/questions/16210972/force-jsf-to-bean-validate-all-fields-of-my-bean-not-only-those-bound-to-an-inp
          */
 
-        if (ValidationUtil.addValidationErrorsToFacesContext(question, facesContext).size() > 0) {
+        if (validationUtil.addValidationErrorsToFacesContext(question).size() > 0) {
             return Pages.VALIDATION_FAILED.outcome;
         }
 
