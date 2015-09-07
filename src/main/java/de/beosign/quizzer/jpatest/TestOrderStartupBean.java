@@ -71,7 +71,6 @@ public class TestOrderStartupBean {
         localInterface.localBusiness();
         localBusinessBean.callMeNoBusiness();
         localBusinessBean.localBusiness();
-        noBusiness.callMeNoBusiness();
 
         Order order = new Order();
 
