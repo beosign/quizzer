@@ -1,7 +1,6 @@
 package de.beosign.quizzer.jpatest;
 
 import java.util.Calendar;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -22,6 +21,10 @@ import de.beosign.quizzer.jpatest.Address.Type;
 import de.beosign.quizzer.jpatest.Order.OrderType;
 import de.beosign.quizzer.jpatest.Person.Sex;
 import de.beosign.quizzer.service.QuestionService;
+import de.beosign.quizzer.service.ejbtest.LocalBusinessBean;
+import de.beosign.quizzer.service.ejbtest.LocalInterface;
+import de.beosign.quizzer.service.ejbtest.LocalServiceBeanNoInterface;
+import de.beosign.quizzer.service.ejbtest.LocalServiceBeanNoInterfaceView;
 
 /**
  * Used during startup to insert some test data.
@@ -43,9 +46,33 @@ public class TestOrderStartupBean {
     @Inject
     private BeanManager beanManager;
 
+    @Inject
+    private LocalServiceBeanNoInterface localServiceBeanNoInterface;
+
+    @Inject
+    private LocalServiceBeanNoInterfaceView localServiceBeanNoInterfaceView;
+
+    @Inject
+    private LocalInterface localInterface;
+
+    @Inject
+    private LocalBusinessBean localBusinessBean;
+
+    // @Inject
+    // Injection not possible as NoBusiness is no Local or Remote interface. Be aware: Eclipse marks this as ambiguos problem, in reality, no bean is eligable
+    // for injection
+    // private NoBusiness noBusiness;
+
     @PostConstruct
     private void init() {
         logger.debug("!!!!!");
+        localServiceBeanNoInterface.callMe();
+        localServiceBeanNoInterfaceView.callMeNoBusiness();
+        localInterface.localBusiness();
+        localBusinessBean.callMeNoBusiness();
+        localBusinessBean.localBusiness();
+        noBusiness.callMeNoBusiness();
+
         Order order = new Order();
 
         LineItem li = new LineItem(order, 1);
@@ -127,10 +154,6 @@ public class TestOrderStartupBean {
 
         em.persist(homer);
         em.persist(marge);
-
-        List<Timesheet> tslist = em.createQuery("from Timesheet t", Timesheet.class).getResultList();
-
-        tslist.forEach(ts -> logger.debug(ts.getEmployee().getLastname()));
 
         listAllBeans();
 
