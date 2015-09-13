@@ -1,5 +1,6 @@
 package de.beosign.quizzer.logging;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
@@ -9,6 +10,11 @@ import org.apache.logging.log4j.Logger;
 public class TraceInterceptor {
     @Inject
     private Logger logger;
+
+    @PostConstruct
+    public void PostConstruct() {
+        logger.debug("POST CONSTRUCT");
+    }
 
     @AroundInvoke
     public Object intercept(InvocationContext ctx) throws Exception {
