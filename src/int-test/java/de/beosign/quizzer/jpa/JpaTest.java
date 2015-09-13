@@ -1,3 +1,4 @@
+package de.beosign.quizzer.jpa;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -8,11 +9,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class JpaTestBase {
+public class JpaTest {
 
     @Deployment
     public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class).addClass(JpaTestBase.class).addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        return ShrinkWrap.create(JavaArchive.class).addClass(JpaTest.class).addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     @Test
