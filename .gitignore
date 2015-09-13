@@ -11,3 +11,7 @@
 hs_err_pid*
 /.apt_generated/
 /src.main.java.generated/
+/bin/
+build/
+.gradle/
+gradle.properties

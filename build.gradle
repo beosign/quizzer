@@ -1,0 +1,147 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.jboss.arquillian.gradle:arquillian-gradle-plugin:0.1'
+    }
+}
+
+apply plugin: 'arquillian'
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: 'war'
+
+// Workaround: Gradle always uses default JRE container
+eclipse {
+    classpath {
+         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre8'
+    }
+}
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+def hibernateVersion = "4.3.7.Final"
+def weldVersion = "1.1.27.Final"//"2.2.7.Final" Demoiselle 2.4.1 não é compatível com Weld 2
+def demoiselleVersion = "2.4.1"
+def arquillianVersion = "1.1.5.Final"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+} 
+
+configurations {
+    providedRuntime
+    jpametamodel
+}
+
+sourceSets {
+    generated.java.srcDirs=['src/generated/java']
+    main {
+        java { srcDir 'src/main/java' }
+        resources { srcDir 'src/main/resources' }
+    }
+    test {
+        java { srcDir 'src/test/java' }
+        resources { srcDir 'src/test/resources' }
+    }
+	integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/int-test/java')
+        }
+        resources.srcDir file('src/int-test/resources')
+    }    
+}
+
+
+
+sourceCompatibility=1.8
+targetCompatibility=1.8
+
+dependencies {
+  	jpametamodel ("org.hibernate:hibernate-jpamodelgen:4.3.5.Final")
+  	compile 'org.apache.logging.log4j:log4j-api:2.3'
+  	compile 'org.apache.logging.log4j:log4j-core:2.3'
+  	compile 'org.primefaces:primefaces:5.2'
+  	compile 'org.apache.commons:commons-lang3:3.4'
+  	compile 'commons-beanutils:commons-beanutils:1.9.2'
+  
+	providedCompile 'javax:javaee-api:7.0'
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.jboss.arquillian.junit:arquillian-junit-container:1.1.1.Final'
+    testCompile 'org.jboss.arquillian:arquillian-bom:1.1.9.Final'
+    testCompile 'org.jboss.arquillian.selenium:selenium-bom:2.47.1'
+    testCompile 'org.seleniumhq.selenium:selenium-java:2.47.1'
+   
+    integrationTestCompile sourceSets.main.output
+    integrationTestCompile configurations.testCompile
+	integrationTestCompile sourceSets.test.output
+    integrationTestRuntime configurations.testRuntime
+
+}
+
+task integrationTest(type: Test) {
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+}
+
+task generateMetaModel(type: JavaCompile, group: 'build', description: 'metamodel generate') {
+
+    source = sourceSets.main.java
+    classpath = configurations.compile + configurations.jpametamodel
+    options.compilerArgs = ["-proc:only"]
+    destinationDir = sourceSets.generated.java.srcDirs.iterator().next()
+
+    doFirst {
+        logger.warn("Prepare dictionary structures  " +sourceSets.generated.java.srcDirs)
+        //delete(sourceSets.generated.java.srcDirs)
+        //sourceSets.generated.java.srcDirs.mkdirs()
+    }
+}
+
+
+compileJava.dependsOn generateMetaModel
+compileJava.source sourceSets.generated.java, sourceSets.main.java
+
+
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
+
+arquillian {
+    debug = true
+    deployable = file('/Quizzer/build/libs/quizzer.war')
+
+    containers {
+        jetty {
+            version = '8'
+            type = 'embedded'
+            config = ['bindHttpPort': 8085, 'bindAddress': '127.0.0.1', 'jettyPlus': false]
+
+            dependencies {
+                adapter 'org.jboss.arquillian.container:arquillian-jetty-embedded-7:1.0.0.CR2'
+                container 'org.eclipse.jetty:jetty-webapp:8.1.11.v20130520'
+                container group: 'org.eclipse.jetty', name: 'jetty-plus', version: '8.1.11.v20130520'
+            }
+        }
+
+        glassfish {
+            version = '3'
+            type = 'embedded'
+        }
+    }
+}
+
