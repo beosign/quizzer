@@ -10,14 +10,11 @@ import javax.inject.Inject;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
 
-@RunWith(CdiRunner.class)
+//@RunWith(CdiRunner.class)
 public class ValidationUtilTest {
 
     /**
@@ -31,7 +28,7 @@ public class ValidationUtilTest {
 
     @Before
     public void setup() {
-        facesContext = PowerMockito.mock(FacesContext.class);
+        facesContext = null;
         Assert.assertNotNull(validationUtil);
 
     }
