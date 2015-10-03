@@ -10,6 +10,7 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		  
 		<jta-data-source>java:jboss/datasources/QuizzerDS</jta-data-source>
+		<!-- <jta-data-source>java:jboss/datasources/QuizzerTestDS</jta-data-source> -->
 		 
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
