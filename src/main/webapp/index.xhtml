@@ -6,7 +6,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="WEB-INF/templates/main.xhtml"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:q="http://java.sun.com/jsf/composite/quizzer" 
+	xmlns:qc="http://www.florian-dahlmanns.de/beosign/quizzer">
 
 	
 
@@ -14,7 +17,8 @@
 		<h2>Welcome</h2>
 
 		<h:form id="form">
-			<p:commandButton id="btn-questions" value="Questions" action="questions"></p:commandButton>
+			<!-- Passthrough attribute on a prime faces component -->
+			<p:commandButton id="btn-questions" pt:testid="btn-questions" value="Questions" action="questions"></p:commandButton>
 			<p:commandButton id="btn-courses" value="Courses" action="courses"></p:commandButton>
 			<p:commandButton value="Test queries"
 				action="#{testController.testQueries()}"></p:commandButton>
@@ -36,6 +40,13 @@
 						listener="#{testController.handleKeyEvent}" />
 				</p:inputText>
 				<h:outputText id="out" value="#{testController.text}" />
+				
+				<!-- 
+					Passthrough attributes are working with a composite component
+					and also with a custom component
+				 -->
+				<q:labeledInput   testid="lblinput" ></q:labeledInput>
+				<qc:inputtext value="10" pt:testid="testid"></qc:inputtext>
 			</h:panelGrid>
 			
 					<h:commandLink styleClass="plain-menu" title="English"

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+	<composite:interface>
+		<composite:attribute name="type" default="inputText" />
+		<composite:attribute name="label" />
+		<composite:attribute name="values" type="java.util.Collection" />
+		<composite:attribute name="valueMap" type="java.util.Map" />
+		
+		<!-- This id is used as a passthrough attribute on the standard inputtext component -->
+		<composite:attribute name="testid" type="java.lang.String" />
+
+		<composite:editableValueHolder name="inputText" targets="name" />
+	</composite:interface>
+
+	<composite:implementation>
+			<h:panelGrid columns="2" role="presentation">
+				<h:outputLabel for="name" value="#{cc.attrs.label}" />
+				<c:if test="#{cc.attrs.type.equals('inputText')}">
+					<h:inputText id="#{cc.attrs.testid}" pt:testid="input-#{cc.attrs.testid}" />
+				</c:if>
+				<c:if test="#{cc.attrs.type.equals('selectOne')}">
+					<h:selectOneMenu id="#{cc.attrs.testid}">
+						<c:if test="#{empty cc.attrs.valueMap}">
+							<f:selectItems value="#{cc.attrs.values}" var="entry"
+								itemValue="#{entry}" />
+						</c:if>
+						<c:if test="#{empty cc.attrs.values}">
+							<f:selectItems value="#{cc.attrs.valueMap}" var="entry"
+								itemValue="#{entry.key}" itemLabel="#{entry.value}"  />
+						</c:if>
+					</h:selectOneMenu>
+				</c:if>
+			</h:panelGrid>
+
+	</composite:implementation>
+</ui:composition>
