@@ -1,5 +1,6 @@
 package de.beosign.quizzer.validator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -21,10 +22,11 @@ import org.apache.logging.log4j.Logger;
  * object.
  * 
  * @author Florian Dahlmanns
- *
  */
 @ApplicationScoped
-public class ValidationUtil {
+public class ValidationUtil implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Inject
     private Logger logger;
 

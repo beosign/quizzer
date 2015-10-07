@@ -1,7 +1,5 @@
 package de.beosign.quizzer.jpatest;
 
-import java.lang.reflect.InvocationTargetException;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
@@ -128,12 +126,12 @@ public class TestController {
         logger.debug("new text: {}", text);
     }
 
-    public void handleKeyEvent(AjaxBehaviorEvent e) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+    public void handleKeyEvent(AjaxBehaviorEvent e) {
         logger.debug("Text = {}, event = {}", text, e.getBehavior());
         logObject(e);
     }
 
-    private void logObject(Object o) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+    private void logObject(Object o) {
         logger.debug(ReflectionToStringBuilder.toString(o));
     }
 

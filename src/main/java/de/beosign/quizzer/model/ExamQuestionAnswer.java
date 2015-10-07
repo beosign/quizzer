@@ -1,5 +1,7 @@
 package de.beosign.quizzer.model;
 
+import java.io.Serializable;
+
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,7 +11,9 @@ import javax.persistence.Transient;
 
 @Entity
 @DiscriminatorColumn(name = "D", length = 1)
-public abstract class ExamQuestionAnswer extends LongKeyBaseEntity {
+public abstract class ExamQuestionAnswer extends LongKeyBaseEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Answer answer;
     private ExamQuestion examQuestion;
 

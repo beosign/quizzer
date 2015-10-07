@@ -30,7 +30,6 @@ import de.beosign.quizzer.service.ejbtest.LocalServiceBeanNoInterfaceView;
  * Used during startup to insert some test data.
  * 
  * @author Florian Dahlmanns
- *
  */
 // Because we want EJB functionality (TX management), we use @Singleton, and not @ApplicationScoped
 // See http://germanescobar.net/2010/04/4-areas-of-possible-confusion-in-jee6.html
@@ -80,8 +79,9 @@ public class TestOrderStartupBean {
         order.getLineItems().add(li);
         order.getLineItems().add(li2);
 
-        if (new Random().nextBoolean()) {
-            if (new Random().nextBoolean()) {
+        Random random = new Random();
+        if (random.nextBoolean()) {
+            if (random.nextBoolean()) {
                 order.setOrderType(OrderType.VIP);
             } else {
                 order.setOrderType(OrderType.PRIME);
@@ -104,7 +104,7 @@ public class TestOrderStartupBean {
         logger.debug("Deleted {} persons", deleted);
 
         Calendar cal = Calendar.getInstance();
-        cal.set(1980, 12, 25);
+        cal.set(1980, 11, 25);
 
         Person homer = new Person();
         homer.setDateOfBirth(cal.getTime());
@@ -158,6 +158,7 @@ public class TestOrderStartupBean {
 
     }
 
+    @SuppressWarnings("serial")
     private void listAllBeans() {
 
         Set<Bean<?>> beans = beanManager.getBeans(Object.class, new AnnotationLiteral<Any>() {

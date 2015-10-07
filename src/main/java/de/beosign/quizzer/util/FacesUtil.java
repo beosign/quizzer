@@ -60,15 +60,11 @@ public class FacesUtil {
         if (label != null && (label instanceof String) && ((String) label).length() == 0) {
             ValueExpression expression = component.getValueExpression("label");
             if (expression != null) {
-                if (expression != null) {
-                    Object objectExp = expression.getValue(facesContext.getELContext());
-                    if (objectExp != null) {
-                        return objectExp.toString();
-                    }
+                Object objectExp = expression.getValue(facesContext.getELContext());
+                if (objectExp != null) {
+                    return objectExp.toString();
                 }
-
             }
-
         }
 
         if (label != null) {

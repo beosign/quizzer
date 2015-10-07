@@ -12,7 +12,7 @@ public class TraceInterceptor {
     private Logger logger;
 
     @PostConstruct
-    public void PostConstruct() {
+    public void postConstruct() {
         logger.debug("POST CONSTRUCT");
     }
 

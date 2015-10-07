@@ -25,17 +25,16 @@ import de.beosign.quizzer.util.FacesUtil;
  * {@link Question#getCode()}.
  * 
  * @author Florian Dahlmanns
- *
  */
 @ApplicationScoped
 @Named
 @FacesConverter(DurationMinutesConverter.DURATION_MINUTES_CONVERTER)
 public class DurationMinutesConverter implements Converter {
     public static final String DURATION_MINUTES_CONVERTER = "DurationMinutesConverter";
+    private static final Logger LOGGER = Log.logger();
 
     @Inject
     private Logger logger;
-    private static final Logger LOGGER = Log.logger();
 
     @Override
     public Duration getAsObject(FacesContext context, UIComponent component, String value) {
@@ -45,7 +44,7 @@ public class DurationMinutesConverter implements Converter {
             return Duration.ZERO;
         } else {
             try {
-                return Duration.ofMinutes(Long.valueOf(value));
+                return Duration.ofMinutes(Long.parseLong(value));
             } catch (NumberFormatException e) {
                 logger.info(e.getMessage(), e);
                 FacesMessage fm = FacesUtil.getFacesMessage(context, FacesMessage.SEVERITY_ERROR, "converter.integral.invalid",

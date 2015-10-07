@@ -1,5 +1,6 @@
 package de.beosign.quizzer.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Exam extends LongKeyBaseEntity {
+public class Exam extends LongKeyBaseEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Course course;
     private List<ExamQuestion> examQuestions = new ArrayList<>();
 

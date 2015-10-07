@@ -1,5 +1,6 @@
 package de.beosign.quizzer.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,9 @@ import javax.validation.constraints.NotNull;
 import de.beosign.quizzer.validator.QuestionAnswersValid;
 
 @Entity
-public class Question extends LongKeyBaseEntity {
+public class Question extends LongKeyBaseEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     public enum Type {
         SINGLE, MULTIPLE, TEXT;
     }

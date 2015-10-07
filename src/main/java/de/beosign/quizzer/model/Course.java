@@ -1,5 +1,6 @@
 package de.beosign.quizzer.model;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,9 @@ import javax.validation.constraints.Size;
 import de.beosign.quizzer.validator.TimeSpan;
 
 @Entity
-public class Course implements BaseEntity<String> {
+public class Course implements BaseEntity<String>, Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String name = "";
     private Long version;
     private List<Question> questions = new ArrayList<>();

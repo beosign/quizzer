@@ -1,11 +1,15 @@
 package de.beosign.quizzer.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Answer extends LongKeyBaseEntity {
+public class Answer extends LongKeyBaseEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Question question;
     private String answerText;
     private boolean isCorrect;

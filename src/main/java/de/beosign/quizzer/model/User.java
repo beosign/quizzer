@@ -1,11 +1,15 @@
 package de.beosign.quizzer.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String login;
     private String firstName;
     private String lastName;
