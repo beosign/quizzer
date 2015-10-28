@@ -12,8 +12,10 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import de.beosign.quizzer.validator.QuestionAnswersValid;
+import de.beosign.quizzer.validator.QuestionTypePoints;
 
 @Entity
+@QuestionTypePoints
 public class Question extends LongKeyBaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 

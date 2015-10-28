@@ -31,7 +31,7 @@ public class ValidationUtil implements Serializable {
     private Logger logger;
 
     @Inject
-    private Validator validator;
+    private ValidatorFactory validatorFactory;
 
     @Inject
     private FacesContext facesContext;
@@ -45,7 +45,8 @@ public class ValidationUtil implements Serializable {
 
     @PostConstruct
     private void init() {
-        logger.debug("Validator: " + validator);
+        logger.debug("ValidatorFactory: " + validatorFactory);
+
     }
 
     private static <T> List<FacesMessage> addValidationErrorsToFacesContext(T o, FacesContext facesContext) {
@@ -71,7 +72,7 @@ public class ValidationUtil implements Serializable {
     }
 
     public <T> List<FacesMessage> addValidationErrorsToFacesContext(T o) {
-        Set<ConstraintViolation<T>> validationErrors = validator.validate(o);
+        Set<ConstraintViolation<T>> validationErrors = validatorFactory.getValidator().validate(o);
 
         return addValidationErrorsToFacesContext(validationErrors, facesContext);
     }
