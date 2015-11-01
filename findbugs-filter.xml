@@ -1,4 +1,19 @@
 <FindBugsFilter>
+	<Match>
+	   <Bug pattern="SE_BAD_FIELD" />
+	   <Or>
+		   <Field type="de.beosign.quizzer.service.QuestionService" />
+		   <Field type="de.beosign.quizzer.service.CourseService" />
+		   <Field type="de.beosign.quizzer.service.ExamService" />
+		   <Field type="javax.servlet.ServletContext" />
+		   <Field type="org.apache.logging.log4j.Logger" />
+		   <Field type="javax.faces.context.FacesContext" />
+		   <Field type="javax.enterprise.context.Conversation" />
+		   <Field type="javax.enterprise.event.Event" />
+		   <Field type="javax.validation.ValidatorFactory" />
+	   </Or>
+	</Match>
+
      <Match>
        <Class name="com.foobar.ClassNotToBeAnalyzed" />
      </Match>
