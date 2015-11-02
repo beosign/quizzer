@@ -6,7 +6,7 @@
 		</Console>
 		<RollingFile name="File" fileName="../logs/quizzer.log" filePattern="../logs/quizzer-%i.log">
 			<PatternLayout>
-				<Pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%-5level] [%C{1}::%M] %msg%n</Pattern>
+				<Pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%6.6X{USER}] [%-5level] [%C{1}::%M] %msg%n</Pattern>
 			</PatternLayout>
 			<Policies>
 				<SizeBasedTriggeringPolicy size="5 MB" />

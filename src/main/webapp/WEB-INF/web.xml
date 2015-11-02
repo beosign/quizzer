@@ -17,7 +17,7 @@
         <servlet-name> must match the exact <servlet-name> 
         of the FacesServlet as you've definied in web.xml.
     -->
-        <servlet>
+    <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
@@ -28,7 +28,19 @@
         <url-pattern>*.jsf</url-pattern>
     </servlet-mapping>
 
-       <session-config>
+	<!-- first define a named filter -->
+	<filter>
+	   <filter-name>LoggingFilter</filter-name>
+	   <filter-class>de.beosign.quizzer.logging.LoggingFilter</filter-class>
+	</filter>
+	
+	<!-- now map this filter to a URL-pattern -->
+	<filter-mapping>
+	   <filter-name>LoggingFilter</filter-name>
+	   <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+    <session-config>
         <session-timeout>
             30
         </session-timeout>
