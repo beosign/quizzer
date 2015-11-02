@@ -7,6 +7,7 @@ import javax.persistence.Transient;
 @Entity
 @DiscriminatorValue("T")
 public class TextExamQuestionAnswer extends ExamQuestionAnswer {
+    private static final long serialVersionUID = 1L;
     private String answerText;
 
     public TextExamQuestionAnswer() {

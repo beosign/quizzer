@@ -7,6 +7,7 @@ import javax.persistence.Transient;
 @Entity
 @DiscriminatorValue("B")
 public class BooleanExamQuestionAnswer extends ExamQuestionAnswer {
+    private static final long serialVersionUID = 1L;
     private boolean isCorrect;
 
     public BooleanExamQuestionAnswer() {
