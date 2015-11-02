@@ -31,7 +31,7 @@ public class QuestionController implements Serializable {
     private List<Question> questions;
 
     public enum Pages {
-        TESTADD("index"), ADD("addEditQuestion"), EDIT("addEditQuestion"), DELETE(""), SELF("questions?faces-redirect=true"), BACK("index");
+        TESTADD("index"), ADD("addEditQuestion"), EDIT("addEditQuestion"), DELETE(""), SELF("questions?faces-redirect=true"), BACK("menu");
 
         private final String outcome;
 

@@ -32,7 +32,7 @@ public class CourseController implements Serializable {
     private List<Course> courses;
 
     public enum Pages {
-        ADD("addEditCourses"), EDIT("addEditCourses"), DELETE("courses?faces-redirect=true"), SELF("courses?faces-redirect=true"), BACK("index");
+        ADD("addEditCourses"), EDIT("addEditCourses"), DELETE("courses?faces-redirect=true"), SELF("courses?faces-redirect=true"), BACK("menu");
 
         private final String outcome;
 

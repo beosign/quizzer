@@ -8,48 +8,33 @@
 	template="WEB-INF/templates/main.xhtml"
 	xmlns:p="http://primefaces.org/ui">
 
-	
+
 
 	<ui:define name="content">
 		<h2>Welcome</h2>
 
 		<h:form id="form">
-			<p:commandButton id="btn-questions" value="Questions" action="questions"></p:commandButton>
-			<p:commandButton id="btn-courses" value="Courses" action="courses"></p:commandButton>
-			<p:commandButton value="Test queries"
-				action="#{testController.testQueries()}"></p:commandButton>
-			<p:commandButton value="Test queries Criteria API"
-				action="#{testController.testQueriesCriteria()}"></p:commandButton>
-
 			<h:panelGrid id="grid" columns="4" cellpadding="5">
 				<h:outputLabel for="name" value="Name:" style="font-weight:bold" />
-				<p:inputText id="name" value="#{testController.text}" />
-				<h:commandButton value="Submit" icon="ui-icon-check">
-					<f:ajax render="display" execute="grid"></f:ajax>
-				</h:commandButton>
-				<h:outputText id="display" value="#{testController.text}" />
-
-
-				<h:outputText value="Keyup: " />
-				<p:inputText id="counter" value="#{testController.text}">
-					<p:ajax event="keyup" update="out"
-						listener="#{testController.handleKeyEvent}" />
-				</p:inputText>
-				<h:outputText id="out" value="#{testController.text}" />
+				<p:inputText id="name" value="#{loginController.username}" />
+				<p:commandButton value="Login" action="#{loginController.login()}"  icon="ui-icon-check">
+					
+				</p:commandButton>
 			</h:panelGrid>
 			
-					<h:commandLink styleClass="plain-menu" title="English"
-						action="#{localeBean.changeLocale('en')}">
-						<h:graphicImage width="32" height="32" library="images/flags"
-							name="flag_en.png" />
-					</h:commandLink>
+			
+			<h:commandLink styleClass="plain-menu" title="English"
+				action="#{localeBean.changeLocale('en')}">
+				<h:graphicImage width="32" height="32" library="images/flags"
+					name="flag_en.png" />
+			</h:commandLink>
 
-					<h:commandLink styleClass="plain-menu" title="Deutsch"
-						action="#{localeBean.changeLocale('de')}">
-						<h:graphicImage width="32" height="32" library="images/flags"
-							name="flag_de.png" />
-					</h:commandLink>			
-		
+			<h:commandLink styleClass="plain-menu" title="Deutsch"
+				action="#{localeBean.changeLocale('de')}">
+				<h:graphicImage width="32" height="32" library="images/flags"
+					name="flag_de.png" />
+			</h:commandLink>
+
 		</h:form>
 	</ui:define>
 </ui:composition>

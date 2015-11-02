@@ -61,10 +61,9 @@ public class TakeExamController implements Serializable {
      * <code>exam</code>> without redirecting, the button click only worked on each second click!!
      * 
      * @author Florian Dahlmanns
-     *
      */
     public enum Pages {
-        START("start-exam"), NEXT(""), PREV(""), CANCEL("index"), SELF("exam?faces-redirect=true"), BACK("index"), FINISH("finish-exam"), CHECK_ANSWERS(""),
+        START("start-exam"), NEXT(""), PREV(""), CANCEL("menu"), SELF("exam?faces-redirect=true"), BACK("menu"), FINISH("finish-exam"), CHECK_ANSWERS(""),
         BACK_COURSES("courses");
 
         private final String outcome;

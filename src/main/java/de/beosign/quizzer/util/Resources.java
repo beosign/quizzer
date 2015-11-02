@@ -6,7 +6,6 @@ import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.servlet.http.HttpServletRequest;
 
 @Dependent
 public class Resources {
@@ -21,10 +20,10 @@ public class Resources {
         return FacesContext.getCurrentInstance();
     }
 
-    @RequestScoped
-    @Produces
-    public HttpServletRequest getHttpServletRequest() {
-        return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-    }
+    // @RequestScoped
+    // @Produces
+    // public HttpServletRequest getHttpServletRequest() {
+    // return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    // }
 
 }
