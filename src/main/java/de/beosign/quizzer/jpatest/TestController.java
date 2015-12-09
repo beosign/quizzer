@@ -126,6 +126,11 @@ public class TestController {
         logger.debug("new text: {}", text);
     }
 
+    public String saveTextFromEditor() {
+        logger.debug("Text in editor: {}", text);
+        return null;
+    }
+
     public void handleKeyEvent(AjaxBehaviorEvent e) {
         logger.debug("Text = {}, event = {}", text, e.getBehavior());
         logObject(e);

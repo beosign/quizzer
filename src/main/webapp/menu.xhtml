@@ -6,22 +6,33 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="WEB-INF/templates/main.xhtml"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
 
 
 	<ui:define name="content">
 		<h2>Welcome</h2>
+		<div id="parentDiv">
+			<h:form id="form">
+				<p:commandButton id="btn-questions" value="Questions"
+					action="questions"></p:commandButton>
+				<p:commandButton id="btn-courses" value="Courses" action="courses"></p:commandButton>
+				<p:commandButton value="Test queries"
+					action="#{testController.testQueries()}"></p:commandButton>
+				<p:commandButton value="Test queries Criteria API"
+					action="#{testController.testQueriesCriteria()}"></p:commandButton>
+				<p:commandButton id="btn-save-text" update="preview" process="@this editor"
+					 value="Test Editor" actionListener="#{testController.saveTextFromEditor()}"></p:commandButton>
 
-		<h:form id="form">
-			<p:commandButton id="btn-questions" value="Questions"
-				action="questions"></p:commandButton>
-			<p:commandButton id="btn-courses" value="Courses" action="courses"></p:commandButton>
-			<p:commandButton value="Test queries"
-				action="#{testController.testQueries()}"></p:commandButton>
-			<p:commandButton value="Test queries Criteria API"
-				action="#{testController.testQueriesCriteria()}"></p:commandButton>
-		</h:form>
+
+				<h:outputText id="preview" value="#{testController.text}"
+					escape="false" />
+				<pe:ckEditor id="editor" value="#{testController.text}" language="#{localeBean.locale.language}">
+					<p:ajax event="blur" onstart="console.log('blur: ' + this); document.getElementById('form:btn-save-text').click();"></p:ajax>
+				</pe:ckEditor> 
+			</h:form>
+		</div>
 	</ui:define>
 </ui:composition>
 

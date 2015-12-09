@@ -72,7 +72,9 @@ dependencies {
   	jpametamodel ("org.hibernate:hibernate-jpamodelgen:4.3.5.Final")
   	compile 'org.apache.logging.log4j:log4j-api:2.3'
   	compile 'org.apache.logging.log4j:log4j-core:2.3'
-  	compile 'org.primefaces:primefaces:5.2'
+  	compile 'org.primefaces:primefaces:5.3'
+  	compile 'org.primefaces.extensions:primefaces-extensions:4.0.0'
+  	compile 'org.primefaces.extensions:resources-ckeditor:4.0.0'
   	compile 'org.apache.commons:commons-lang3:3.4'
   	compile 'commons-beanutils:commons-beanutils:1.9.2'
   
