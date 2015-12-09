@@ -22,13 +22,12 @@
 					action="#{testController.testQueries()}"></p:commandButton>
 				<p:commandButton value="Test queries Criteria API"
 					action="#{testController.testQueriesCriteria()}"></p:commandButton>
-				<p:commandButton id="btn-save-text" update="preview" process="@this editor"
+				<p:commandButton id="btn-save-text" update="preview" process="@this"
 					 value="Test Editor" actionListener="#{testController.saveTextFromEditor()}"></p:commandButton>
 
 
-				<h:outputText id="preview" value="#{testController.text}"
-					escape="false" />
-				<pe:ckEditor id="editor" value="#{testController.text}" language="#{localeBean.locale.language}">
+				<h:outputText id="preview" value="#{testController.text}" escape="false" />
+				<pe:ckEditor id="editor" value="#{testController.text}" language="#{localeBean.locale.language}" toolbar="[['Bold','Italic','Underline','Strike','Subscript','Superscript','RemoveFormat'],['Styles','Format','Font','FontSize'],['Preview','Print'],['Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo'],['Find','Replace','SelectAll'],['NumberedList','BulletedList','Outdent','Indent','Blockquote','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','Link','Unlink','Anchor','-','CreatePlaceholder','Image','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','InsertPre'],['TextColor','BGColor','-','UIColor','Maximize','ShowBlocks']]" >
 					<p:ajax event="blur" onstart="console.log('blur: ' + this); document.getElementById('form:btn-save-text').click();"></p:ajax>
 				</pe:ckEditor> 
 			</h:form>
