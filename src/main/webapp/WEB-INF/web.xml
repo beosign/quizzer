@@ -11,6 +11,11 @@
 	    <param-value>true</param-value>
 	</context-param>
 
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>afterdark</param-value>
+	</context-param>
+	
     <!--        
         responsible for handling multipart/form-data requests which 
         is required to be able to send files over HTTP.

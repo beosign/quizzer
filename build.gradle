@@ -36,6 +36,9 @@ def arquillianVersion = "1.1.5.Final"
 repositories {
     mavenLocal()
     mavenCentral()
+    maven {
+    	url "http://repository.primefaces.org"
+    }
 } 
 
 configurations {
@@ -73,6 +76,7 @@ dependencies {
   	compile 'org.apache.logging.log4j:log4j-api:2.3'
   	compile 'org.apache.logging.log4j:log4j-core:2.3'
   	compile 'org.primefaces:primefaces:5.3'
+  	compile 'org.primefaces.themes:afterdark:1.0.10'
   	compile 'org.primefaces.extensions:primefaces-extensions:4.0.0'
   	compile 'org.primefaces.extensions:resources-ckeditor:4.0.0'
   	compile 'org.apache.commons:commons-lang3:3.4'
